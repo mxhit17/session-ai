@@ -1,0 +1,186 @@
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model audit_logs {
+  id          String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id     String?   @db.Uuid
+  action      String
+  entity_type String
+  entity_id   String?   @db.Uuid
+  old_data    Json?
+  new_data    Json?
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model events {
+  id          String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  title       String
+  description String?
+  start_date  DateTime     @db.Date
+  end_date    DateTime     @db.Date
+  location    String?
+  timezone    String
+  is_public   Boolean?     @default(true)
+  created_by  String?      @db.Uuid
+  created_at  DateTime?    @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?    @default(now()) @db.Timestamp(6)
+  deleted_at  DateTime?    @db.Timestamp(6)
+  users       users?       @relation(fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rooms       rooms[]
+  sessions    sessions[]
+  time_slots  time_slots[]
+  tracks      tracks[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model reviews {
+  id              String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  session_id      String?   @db.Uuid
+  reviewer_id     String?   @db.Uuid
+  score           Int?
+  comment         String?
+  ai_analysis     Json?
+  is_ai_generated Boolean?  @default(false)
+  created_at      DateTime? @default(now()) @db.Timestamp(6)
+  users           users?    @relation(fields: [reviewer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  sessions        sessions? @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([session_id], map: "idx_reviews_session")
+}
+
+model roles {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  user_roles user_roles[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model rooms {
+  id                 String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  event_id           String?              @db.Uuid
+  name               String
+  capacity           Int?
+  events             events?              @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  scheduled_sessions scheduled_sessions[]
+
+  @@unique([event_id, name])
+}
+
+model scheduled_sessions {
+  session_id   String      @id @db.Uuid
+  room_id      String?     @db.Uuid
+  time_slot_id String?     @db.Uuid
+  rooms        rooms?      @relation(fields: [room_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  sessions     sessions    @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  time_slots   time_slots? @relation(fields: [time_slot_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([room_id, time_slot_id], map: "idx_schedule_room_time")
+}
+
+model session_speakers {
+  session_id       String           @db.Uuid
+  speaker_id       String           @db.Uuid
+  sessions         sessions         @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  speaker_profiles speaker_profiles @relation(fields: [speaker_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([session_id, speaker_id])
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model sessions {
+  id                 String                 @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  event_id           String?                @db.Uuid
+  track_id           String?                @db.Uuid
+  title              String
+  abstract           String
+  level              String?
+  status             String?
+  embedding          Unsupported("vector")?
+  created_at         DateTime?              @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?              @default(now()) @db.Timestamp(6)
+  deleted_at         DateTime?              @db.Timestamp(6)
+  reviews            reviews[]
+  scheduled_sessions scheduled_sessions?
+  session_speakers   session_speakers[]
+  events             events?                @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tracks             tracks?                @relation(fields: [track_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([embedding], map: "idx_sessions_embedding")
+  @@index([event_id], map: "idx_sessions_event")
+  @@index([status], map: "idx_sessions_status")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model speaker_profiles {
+  id                String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id           String?            @unique @db.Uuid
+  bio               String?
+  organization      String?
+  experience_level  String?
+  profile_photo_url String?
+  session_speakers  session_speakers[]
+  users             users?             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model time_slots {
+  id                 String               @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  event_id           String?              @db.Uuid
+  start_time         DateTime             @db.Timestamp(6)
+  end_time           DateTime             @db.Timestamp(6)
+  scheduled_sessions scheduled_sessions[]
+  events             events?              @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model tracks {
+  id          String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  event_id    String?    @db.Uuid
+  name        String
+  description String?
+  sessions    sessions[]
+  events      events?    @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([event_id, name])
+  @@index([event_id], map: "idx_tracks_event")
+}
+
+model user_roles {
+  user_id String @db.Uuid
+  role_id Int
+  roles   roles  @relation(fields: [role_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users   users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([user_id, role_id])
+}
+
+model users {
+  id               String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  full_name        String
+  email            String            @unique
+  password_hash    String
+  is_active        Boolean?          @default(true)
+  created_at       DateTime?         @default(now()) @db.Timestamp(6)
+  updated_at       DateTime?         @default(now()) @db.Timestamp(6)
+  deleted_at       DateTime?         @db.Timestamp(6)
+  events           events[]
+  reviews          reviews[]
+  speaker_profiles speaker_profiles?
+  user_roles       user_roles[]
+
+  @@index([email], map: "idx_users_email")
+}
+
+enum Role {
+  ADMIN
+  ORGANIZER
+  SPEAKER
+  REVIEWER
+  AI
+}
