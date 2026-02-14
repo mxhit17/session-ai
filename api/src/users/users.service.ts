@@ -65,7 +65,8 @@ export class UsersService {
       };
 
       // 7. Sign token
-      const access_token = this.jwtService.sign(payload);
+      // const access_token = this.jwtService.sign(payload);
+      const token = this.jwtService.sign(payload);
 
       // 8. Return response
       return {
@@ -76,7 +77,8 @@ export class UsersService {
           role: role.name,
           created_at: user.created_at,
         },
-        access_token,
+        // access_token,
+        token,
       };
     });
   }

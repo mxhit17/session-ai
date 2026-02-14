@@ -79,7 +79,7 @@ async function runFeatureExtraction() {
     console.log(process.env.HF_TOKEN);
   const result = await hf.featureExtraction({
     model: "intfloat/e5-small-v2",
-    inputs: "That is a happy person",
+    inputs: "That is a very happy person",
   });
 
   console.log(result);
