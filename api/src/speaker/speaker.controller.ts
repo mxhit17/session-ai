@@ -8,16 +8,17 @@ import { SpeakerService } from './speaker.service';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('speaker')
-@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)  // 👈 IMPORTANT
 @Roles('SPEAKER')
 export class SpeakerController {
   constructor(private readonly speakerService: SpeakerService) {}
 
   @Get('sessions')
   getMySessions(@CurrentUser() user: any) {
-    return this.speakerService.getMySessions(user.id);
+    return this.speakerService.getMySessions(user.sub);
   }
 
   @Get('sessions/:id')
