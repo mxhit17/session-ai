@@ -1,5 +1,6 @@
 import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../common/prisma/prisma.service';
+import { UpdateSpeakerProfileDto } from './dto/update-speaker-profile.dto';
 
 @Injectable()
 export class SpeakerService {
@@ -67,5 +68,33 @@ export class SpeakerService {
     }
 
     return session;
+  }
+
+  async getOrCreateProfile(userId: string) {
+    return this.prisma.speaker_profiles.upsert({
+      where: { user_id: userId },
+      update: {}, // nothing to update
+      create: {
+        user_id: userId,
+        bio: '',
+        organization: '',
+        experience_level: 'Beginner',
+      },
+    });
+  }
+
+  async updateProfile(userId: string, updateDto: UpdateSpeakerProfileDto) {
+    return this.prisma.speaker_profiles.upsert({
+      where: { user_id: userId },
+      update: {
+        ...updateDto,
+      },
+      create: {
+        user_id: userId,
+        bio: updateDto.bio ?? '',
+        organization: updateDto.organization ?? '',
+        experience_level: updateDto.experience_level ?? 'Beginner',
+      },
+    });
   }
 }
