@@ -19,10 +19,17 @@ import { Roles } from '../auth/roles.decorator';
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
+  // @Post()
+  // @HttpCode(HttpStatus.CREATED)
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles('ORGANIZER')
+  // async createEvent(@Body() dto: CreateEventDto, @Req() req) {
+  //   return this.eventsService.createEvent(dto, req.user.sub);
+  // }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('ORGANIZER')
+  @UseGuards(JwtAuthGuard) // Remove RolesGuard
   async createEvent(@Body() dto: CreateEventDto, @Req() req) {
     return this.eventsService.createEvent(dto, req.user.sub);
   }
