@@ -7,7 +7,7 @@ import {
   HttpCode,
   HttpStatus,
   Get,
-  Param,
+  Param
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
@@ -19,14 +19,6 @@ import { Roles } from '../auth/roles.decorator';
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
-  // @Post()
-  // @HttpCode(HttpStatus.CREATED)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Roles('ORGANIZER')
-  // async createEvent(@Body() dto: CreateEventDto, @Req() req) {
-  //   return this.eventsService.createEvent(dto, req.user.sub);
-  // }
-
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @UseGuards(JwtAuthGuard) // Remove RolesGuard
@@ -37,6 +29,13 @@ export class EventsController {
   @Get()
   async listPublicEvents() {
     return this.eventsService.listPublicEvents();
+  }
+
+  @Get('my-events')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ORGANIZER')
+  async getMyEvents(@Req() req) {
+    return this.eventsService.getEventsByOrganizer(req.user.sub);
   }
 
   @Get(':id')
