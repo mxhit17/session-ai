@@ -37,6 +37,9 @@ export type EventsMinAggregateOutputType = {
   created_at: Date | null
   updated_at: Date | null
   deleted_at: Date | null
+  cfp_open: boolean | null
+  cfp_start: Date | null
+  cfp_end: Date | null
 }
 
 export type EventsMaxAggregateOutputType = {
@@ -52,6 +55,9 @@ export type EventsMaxAggregateOutputType = {
   created_at: Date | null
   updated_at: Date | null
   deleted_at: Date | null
+  cfp_open: boolean | null
+  cfp_start: Date | null
+  cfp_end: Date | null
 }
 
 export type EventsCountAggregateOutputType = {
@@ -67,6 +73,9 @@ export type EventsCountAggregateOutputType = {
   created_at: number
   updated_at: number
   deleted_at: number
+  cfp_open: number
+  cfp_start: number
+  cfp_end: number
   _all: number
 }
 
@@ -84,6 +93,9 @@ export type EventsMinAggregateInputType = {
   created_at?: true
   updated_at?: true
   deleted_at?: true
+  cfp_open?: true
+  cfp_start?: true
+  cfp_end?: true
 }
 
 export type EventsMaxAggregateInputType = {
@@ -99,6 +111,9 @@ export type EventsMaxAggregateInputType = {
   created_at?: true
   updated_at?: true
   deleted_at?: true
+  cfp_open?: true
+  cfp_start?: true
+  cfp_end?: true
 }
 
 export type EventsCountAggregateInputType = {
@@ -114,6 +129,9 @@ export type EventsCountAggregateInputType = {
   created_at?: true
   updated_at?: true
   deleted_at?: true
+  cfp_open?: true
+  cfp_start?: true
+  cfp_end?: true
   _all?: true
 }
 
@@ -202,6 +220,9 @@ export type EventsGroupByOutputType = {
   created_at: Date | null
   updated_at: Date | null
   deleted_at: Date | null
+  cfp_open: boolean | null
+  cfp_start: Date | null
+  cfp_end: Date | null
   _count: EventsCountAggregateOutputType | null
   _min: EventsMinAggregateOutputType | null
   _max: EventsMaxAggregateOutputType | null
@@ -238,6 +259,9 @@ export type eventsWhereInput = {
   created_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
   deleted_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
+  cfp_open?: Prisma.BoolNullableFilter<"events"> | boolean | null
+  cfp_start?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
+  cfp_end?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
   users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
   rooms?: Prisma.RoomsListRelationFilter
   sessions?: Prisma.SessionsListRelationFilter
@@ -258,6 +282,9 @@ export type eventsOrderByWithRelationInput = {
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  cfp_open?: Prisma.SortOrderInput | Prisma.SortOrder
+  cfp_start?: Prisma.SortOrderInput | Prisma.SortOrder
+  cfp_end?: Prisma.SortOrderInput | Prisma.SortOrder
   users?: Prisma.usersOrderByWithRelationInput
   rooms?: Prisma.roomsOrderByRelationAggregateInput
   sessions?: Prisma.sessionsOrderByRelationAggregateInput
@@ -281,6 +308,9 @@ export type eventsWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
   deleted_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
+  cfp_open?: Prisma.BoolNullableFilter<"events"> | boolean | null
+  cfp_start?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
+  cfp_end?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
   users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
   rooms?: Prisma.RoomsListRelationFilter
   sessions?: Prisma.SessionsListRelationFilter
@@ -301,6 +331,9 @@ export type eventsOrderByWithAggregationInput = {
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  cfp_open?: Prisma.SortOrderInput | Prisma.SortOrder
+  cfp_start?: Prisma.SortOrderInput | Prisma.SortOrder
+  cfp_end?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.eventsCountOrderByAggregateInput
   _max?: Prisma.eventsMaxOrderByAggregateInput
   _min?: Prisma.eventsMinOrderByAggregateInput
@@ -322,6 +355,9 @@ export type eventsScalarWhereWithAggregatesInput = {
   created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"events"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"events"> | Date | string | null
   deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"events"> | Date | string | null
+  cfp_open?: Prisma.BoolNullableWithAggregatesFilter<"events"> | boolean | null
+  cfp_start?: Prisma.DateTimeNullableWithAggregatesFilter<"events"> | Date | string | null
+  cfp_end?: Prisma.DateTimeNullableWithAggregatesFilter<"events"> | Date | string | null
 }
 
 export type eventsCreateInput = {
@@ -336,6 +372,9 @@ export type eventsCreateInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   users?: Prisma.usersCreateNestedOneWithoutEventsInput
   rooms?: Prisma.roomsCreateNestedManyWithoutEventsInput
   sessions?: Prisma.sessionsCreateNestedManyWithoutEventsInput
@@ -356,6 +395,9 @@ export type eventsUncheckedCreateInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   rooms?: Prisma.roomsUncheckedCreateNestedManyWithoutEventsInput
   sessions?: Prisma.sessionsUncheckedCreateNestedManyWithoutEventsInput
   time_slots?: Prisma.time_slotsUncheckedCreateNestedManyWithoutEventsInput
@@ -374,6 +416,9 @@ export type eventsUpdateInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.usersUpdateOneWithoutEventsNestedInput
   rooms?: Prisma.roomsUpdateManyWithoutEventsNestedInput
   sessions?: Prisma.sessionsUpdateManyWithoutEventsNestedInput
@@ -394,6 +439,9 @@ export type eventsUncheckedUpdateInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rooms?: Prisma.roomsUncheckedUpdateManyWithoutEventsNestedInput
   sessions?: Prisma.sessionsUncheckedUpdateManyWithoutEventsNestedInput
   time_slots?: Prisma.time_slotsUncheckedUpdateManyWithoutEventsNestedInput
@@ -413,6 +461,9 @@ export type eventsCreateManyInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
 }
 
 export type eventsUpdateManyMutationInput = {
@@ -427,6 +478,9 @@ export type eventsUpdateManyMutationInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type eventsUncheckedUpdateManyInput = {
@@ -442,6 +496,9 @@ export type eventsUncheckedUpdateManyInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type eventsCountOrderByAggregateInput = {
@@ -457,6 +514,9 @@ export type eventsCountOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
+  cfp_open?: Prisma.SortOrder
+  cfp_start?: Prisma.SortOrder
+  cfp_end?: Prisma.SortOrder
 }
 
 export type eventsMaxOrderByAggregateInput = {
@@ -472,6 +532,9 @@ export type eventsMaxOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
+  cfp_open?: Prisma.SortOrder
+  cfp_start?: Prisma.SortOrder
+  cfp_end?: Prisma.SortOrder
 }
 
 export type eventsMinOrderByAggregateInput = {
@@ -487,6 +550,9 @@ export type eventsMinOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
+  cfp_open?: Prisma.SortOrder
+  cfp_start?: Prisma.SortOrder
+  cfp_end?: Prisma.SortOrder
 }
 
 export type EventsNullableScalarRelationFilter = {
@@ -630,6 +696,9 @@ export type eventsCreateWithoutRoomsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   users?: Prisma.usersCreateNestedOneWithoutEventsInput
   sessions?: Prisma.sessionsCreateNestedManyWithoutEventsInput
   time_slots?: Prisma.time_slotsCreateNestedManyWithoutEventsInput
@@ -649,6 +718,9 @@ export type eventsUncheckedCreateWithoutRoomsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   sessions?: Prisma.sessionsUncheckedCreateNestedManyWithoutEventsInput
   time_slots?: Prisma.time_slotsUncheckedCreateNestedManyWithoutEventsInput
   tracks?: Prisma.tracksUncheckedCreateNestedManyWithoutEventsInput
@@ -682,6 +754,9 @@ export type eventsUpdateWithoutRoomsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.usersUpdateOneWithoutEventsNestedInput
   sessions?: Prisma.sessionsUpdateManyWithoutEventsNestedInput
   time_slots?: Prisma.time_slotsUpdateManyWithoutEventsNestedInput
@@ -701,6 +776,9 @@ export type eventsUncheckedUpdateWithoutRoomsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.sessionsUncheckedUpdateManyWithoutEventsNestedInput
   time_slots?: Prisma.time_slotsUncheckedUpdateManyWithoutEventsNestedInput
   tracks?: Prisma.tracksUncheckedUpdateManyWithoutEventsNestedInput
@@ -718,6 +796,9 @@ export type eventsCreateWithoutSessionsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   users?: Prisma.usersCreateNestedOneWithoutEventsInput
   rooms?: Prisma.roomsCreateNestedManyWithoutEventsInput
   time_slots?: Prisma.time_slotsCreateNestedManyWithoutEventsInput
@@ -737,6 +818,9 @@ export type eventsUncheckedCreateWithoutSessionsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   rooms?: Prisma.roomsUncheckedCreateNestedManyWithoutEventsInput
   time_slots?: Prisma.time_slotsUncheckedCreateNestedManyWithoutEventsInput
   tracks?: Prisma.tracksUncheckedCreateNestedManyWithoutEventsInput
@@ -770,6 +854,9 @@ export type eventsUpdateWithoutSessionsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.usersUpdateOneWithoutEventsNestedInput
   rooms?: Prisma.roomsUpdateManyWithoutEventsNestedInput
   time_slots?: Prisma.time_slotsUpdateManyWithoutEventsNestedInput
@@ -789,6 +876,9 @@ export type eventsUncheckedUpdateWithoutSessionsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rooms?: Prisma.roomsUncheckedUpdateManyWithoutEventsNestedInput
   time_slots?: Prisma.time_slotsUncheckedUpdateManyWithoutEventsNestedInput
   tracks?: Prisma.tracksUncheckedUpdateManyWithoutEventsNestedInput
@@ -806,6 +896,9 @@ export type eventsCreateWithoutTime_slotsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   users?: Prisma.usersCreateNestedOneWithoutEventsInput
   rooms?: Prisma.roomsCreateNestedManyWithoutEventsInput
   sessions?: Prisma.sessionsCreateNestedManyWithoutEventsInput
@@ -825,6 +918,9 @@ export type eventsUncheckedCreateWithoutTime_slotsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   rooms?: Prisma.roomsUncheckedCreateNestedManyWithoutEventsInput
   sessions?: Prisma.sessionsUncheckedCreateNestedManyWithoutEventsInput
   tracks?: Prisma.tracksUncheckedCreateNestedManyWithoutEventsInput
@@ -858,6 +954,9 @@ export type eventsUpdateWithoutTime_slotsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.usersUpdateOneWithoutEventsNestedInput
   rooms?: Prisma.roomsUpdateManyWithoutEventsNestedInput
   sessions?: Prisma.sessionsUpdateManyWithoutEventsNestedInput
@@ -877,6 +976,9 @@ export type eventsUncheckedUpdateWithoutTime_slotsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rooms?: Prisma.roomsUncheckedUpdateManyWithoutEventsNestedInput
   sessions?: Prisma.sessionsUncheckedUpdateManyWithoutEventsNestedInput
   tracks?: Prisma.tracksUncheckedUpdateManyWithoutEventsNestedInput
@@ -894,6 +996,9 @@ export type eventsCreateWithoutTracksInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   users?: Prisma.usersCreateNestedOneWithoutEventsInput
   rooms?: Prisma.roomsCreateNestedManyWithoutEventsInput
   sessions?: Prisma.sessionsCreateNestedManyWithoutEventsInput
@@ -913,6 +1018,9 @@ export type eventsUncheckedCreateWithoutTracksInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   rooms?: Prisma.roomsUncheckedCreateNestedManyWithoutEventsInput
   sessions?: Prisma.sessionsUncheckedCreateNestedManyWithoutEventsInput
   time_slots?: Prisma.time_slotsUncheckedCreateNestedManyWithoutEventsInput
@@ -946,6 +1054,9 @@ export type eventsUpdateWithoutTracksInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   users?: Prisma.usersUpdateOneWithoutEventsNestedInput
   rooms?: Prisma.roomsUpdateManyWithoutEventsNestedInput
   sessions?: Prisma.sessionsUpdateManyWithoutEventsNestedInput
@@ -965,6 +1076,9 @@ export type eventsUncheckedUpdateWithoutTracksInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rooms?: Prisma.roomsUncheckedUpdateManyWithoutEventsNestedInput
   sessions?: Prisma.sessionsUncheckedUpdateManyWithoutEventsNestedInput
   time_slots?: Prisma.time_slotsUncheckedUpdateManyWithoutEventsNestedInput
@@ -982,6 +1096,9 @@ export type eventsCreateWithoutUsersInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   rooms?: Prisma.roomsCreateNestedManyWithoutEventsInput
   sessions?: Prisma.sessionsCreateNestedManyWithoutEventsInput
   time_slots?: Prisma.time_slotsCreateNestedManyWithoutEventsInput
@@ -1000,6 +1117,9 @@ export type eventsUncheckedCreateWithoutUsersInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
   rooms?: Prisma.roomsUncheckedCreateNestedManyWithoutEventsInput
   sessions?: Prisma.sessionsUncheckedCreateNestedManyWithoutEventsInput
   time_slots?: Prisma.time_slotsUncheckedCreateNestedManyWithoutEventsInput
@@ -1048,6 +1168,9 @@ export type eventsScalarWhereInput = {
   created_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
   deleted_at?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
+  cfp_open?: Prisma.BoolNullableFilter<"events"> | boolean | null
+  cfp_start?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
+  cfp_end?: Prisma.DateTimeNullableFilter<"events"> | Date | string | null
 }
 
 export type eventsCreateManyUsersInput = {
@@ -1062,6 +1185,9 @@ export type eventsCreateManyUsersInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  cfp_open?: boolean | null
+  cfp_start?: Date | string | null
+  cfp_end?: Date | string | null
 }
 
 export type eventsUpdateWithoutUsersInput = {
@@ -1076,6 +1202,9 @@ export type eventsUpdateWithoutUsersInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rooms?: Prisma.roomsUpdateManyWithoutEventsNestedInput
   sessions?: Prisma.sessionsUpdateManyWithoutEventsNestedInput
   time_slots?: Prisma.time_slotsUpdateManyWithoutEventsNestedInput
@@ -1094,6 +1223,9 @@ export type eventsUncheckedUpdateWithoutUsersInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rooms?: Prisma.roomsUncheckedUpdateManyWithoutEventsNestedInput
   sessions?: Prisma.sessionsUncheckedUpdateManyWithoutEventsNestedInput
   time_slots?: Prisma.time_slotsUncheckedUpdateManyWithoutEventsNestedInput
@@ -1112,6 +1244,9 @@ export type eventsUncheckedUpdateManyWithoutUsersInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_open?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  cfp_start?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  cfp_end?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1185,6 +1320,9 @@ export type eventsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   created_at?: boolean
   updated_at?: boolean
   deleted_at?: boolean
+  cfp_open?: boolean
+  cfp_start?: boolean
+  cfp_end?: boolean
   users?: boolean | Prisma.events$usersArgs<ExtArgs>
   rooms?: boolean | Prisma.events$roomsArgs<ExtArgs>
   sessions?: boolean | Prisma.events$sessionsArgs<ExtArgs>
@@ -1206,6 +1344,9 @@ export type eventsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   created_at?: boolean
   updated_at?: boolean
   deleted_at?: boolean
+  cfp_open?: boolean
+  cfp_start?: boolean
+  cfp_end?: boolean
   users?: boolean | Prisma.events$usersArgs<ExtArgs>
 }, ExtArgs["result"]["events"]>
 
@@ -1222,6 +1363,9 @@ export type eventsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   created_at?: boolean
   updated_at?: boolean
   deleted_at?: boolean
+  cfp_open?: boolean
+  cfp_start?: boolean
+  cfp_end?: boolean
   users?: boolean | Prisma.events$usersArgs<ExtArgs>
 }, ExtArgs["result"]["events"]>
 
@@ -1238,9 +1382,12 @@ export type eventsSelectScalar = {
   created_at?: boolean
   updated_at?: boolean
   deleted_at?: boolean
+  cfp_open?: boolean
+  cfp_start?: boolean
+  cfp_end?: boolean
 }
 
-export type eventsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "start_date" | "end_date" | "location" | "timezone" | "is_public" | "created_by" | "created_at" | "updated_at" | "deleted_at", ExtArgs["result"]["events"]>
+export type eventsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "start_date" | "end_date" | "location" | "timezone" | "is_public" | "created_by" | "created_at" | "updated_at" | "deleted_at" | "cfp_open" | "cfp_start" | "cfp_end", ExtArgs["result"]["events"]>
 export type eventsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.events$usersArgs<ExtArgs>
   rooms?: boolean | Prisma.events$roomsArgs<ExtArgs>
@@ -1278,6 +1425,9 @@ export type $eventsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     created_at: Date | null
     updated_at: Date | null
     deleted_at: Date | null
+    cfp_open: boolean | null
+    cfp_start: Date | null
+    cfp_end: Date | null
   }, ExtArgs["result"]["events"]>
   composites: {}
 }
@@ -1718,6 +1868,9 @@ export interface eventsFieldRefs {
   readonly created_at: Prisma.FieldRef<"events", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"events", 'DateTime'>
   readonly deleted_at: Prisma.FieldRef<"events", 'DateTime'>
+  readonly cfp_open: Prisma.FieldRef<"events", 'Boolean'>
+  readonly cfp_start: Prisma.FieldRef<"events", 'DateTime'>
+  readonly cfp_end: Prisma.FieldRef<"events", 'DateTime'>
 }
     
 

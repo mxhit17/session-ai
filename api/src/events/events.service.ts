@@ -1,11 +1,14 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { CreateEventDto } from './dto/create-event.dto';
-
+import { JwtService } from '@nestjs/jwt';
+import { UpdateEventDto } from './dto/update-event.dto';
 @Injectable()
 export class EventsService {
-  constructor(private readonly prisma: PrismaService) {}
-
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
   async createEvent(dto: CreateEventDto, userId: string) {
     const start = new Date(dto.start_date);
     const end = new Date(dto.end_date);
@@ -28,6 +31,8 @@ export class EventsService {
         },
       });
 
+      let newToken: string | null = null;
+
       if (!existingRole) {
         await tx.user_roles.create({
           data: {
@@ -35,9 +40,30 @@ export class EventsService {
             role_id: organizerRole.id,
           },
         });
+
+        // ✅ Fetch updated roles
+        const updatedRoles = await tx.user_roles.findMany({
+          where: { user_id: userId },
+          include: { roles: true },
+        });
+
+        const roleNames = updatedRoles.map((ur) => ur.roles.name);
+
+        // ✅ Fetch user email
+        const user = await tx.users.findUniqueOrThrow({
+          where: { id: userId },
+          select: { email: true },
+        });
+
+        // ✅ Sign new token with email included
+        newToken = this.jwtService.sign({
+          sub: userId,
+          email: user.email,
+          roles: roleNames,
+        });
       }
 
-      return tx.events.create({
+      const event = await tx.events.create({
         data: {
           title: dto.title,
           description: dto.description,
@@ -48,7 +74,74 @@ export class EventsService {
           created_by: userId,
         },
       });
+
+      return {
+        event,
+        token: newToken,
+      };
     });
+  }
+
+  async updateEvent(id: string, dto: UpdateEventDto, userId: string) {
+    const event = await this.prisma.events.findFirst({
+      where: {
+        id,
+        deleted_at: null,
+      },
+    });
+
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
+
+    // 🔐 Ownership check
+    if (event.created_by !== userId) {
+      throw new ForbiddenException('You can only edit your own events');
+    }
+
+    // 📅 Date validation (if provided)
+    const start = dto.start_date ? new Date(dto.start_date) : event.start_date;
+    const end = dto.end_date ? new Date(dto.end_date) : event.end_date;
+
+    if (end < start) {
+      throw new BadRequestException('End date must be after start date');
+    }
+
+    return this.prisma.events.update({
+      where: { id },
+      data: {
+        ...dto,
+        start_date: start,
+        end_date: end,
+        updated_at: new Date(),
+      },
+    });
+  }
+
+  async softDeleteEvent(id: string, userId: string) {
+    const event = await this.prisma.events.findFirst({
+      where: {
+        id,
+        deleted_at: null,
+      },
+    });
+
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
+
+    if (event.created_by !== userId) {
+      throw new ForbiddenException('You can only delete your own events');
+    }
+
+    await this.prisma.events.update({
+      where: { id },
+      data: {
+        deleted_at: new Date(),
+      },
+    });
+
+    return { message: 'Event deleted successfully (soft delete)' };
   }
 
   async listPublicEvents() {
@@ -69,6 +162,9 @@ export class EventsService {
         location: true,
         timezone: true,
         created_at: true,
+        cfp_open: true,
+        cfp_start: true,
+        cfp_end: true,
         },
     });
 

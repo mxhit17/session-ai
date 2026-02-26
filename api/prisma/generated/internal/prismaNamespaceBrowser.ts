@@ -108,7 +108,10 @@ export const EventsScalarFieldEnum = {
   created_by: 'created_by',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  cfp_open: 'cfp_open',
+  cfp_start: 'cfp_start',
+  cfp_end: 'cfp_end'
 } as const
 
 export type EventsScalarFieldEnum = (typeof EventsScalarFieldEnum)[keyof typeof EventsScalarFieldEnum]

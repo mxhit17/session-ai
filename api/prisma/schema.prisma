@@ -32,6 +32,9 @@ model events {
   created_at  DateTime?    @default(now()) @db.Timestamp(6)
   updated_at  DateTime?    @default(now()) @db.Timestamp(6)
   deleted_at  DateTime?    @db.Timestamp(6)
+  cfp_open    Boolean?     @default(false)
+  cfp_start   DateTime?    @db.Timestamp(6)
+  cfp_end     DateTime?    @db.Timestamp(6)
   users       users?       @relation(fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
   rooms       rooms[]
   sessions    sessions[]
@@ -175,12 +178,4 @@ model users {
   user_roles       user_roles[]
 
   @@index([email], map: "idx_users_email")
-}
-
-enum Role {
-  ADMIN
-  ORGANIZER
-  SPEAKER
-  REVIEWER
-  AI
 }
