@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Req, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Req, HttpCode, HttpStatus, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -6,6 +6,7 @@ import { UseGuards, Get } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
+import { SearchUsersDto } from './dto/search-users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -27,6 +28,11 @@ export class UsersController {
   async login(@Body() body: LoginUserDto) {
     const { email, password } = body;
     return this.usersService.loginUser(email, password);
+  }
+
+  @Get()
+  getUsers(@Query() query: SearchUsersDto) {
+    return this.usersService.getUsers(query);
   }
 
   // Protected

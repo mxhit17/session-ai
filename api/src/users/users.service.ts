@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { SearchUsersDto } from './dto/search-users.dto';
 
 @Injectable()
 export class UsersService {
@@ -133,5 +134,66 @@ export class UsersService {
         roles,
       },
     };
+  }
+
+  async getUsers(query: SearchUsersDto) {
+    const { search, role } = query;
+
+    const users = await this.prisma.users.findMany({
+      where: {
+        deleted_at: null,
+
+        ...(search && {
+          OR: [
+            {
+              full_name: {
+                contains: search,
+                mode: 'insensitive',
+              },
+            },
+            {
+              email: {
+                contains: search,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        }),
+
+        ...(role && {
+          user_roles: {
+            some: {
+              roles: {
+                name: role,
+              },
+            },
+          },
+        }),
+      },
+      select: {
+        id: true,
+        full_name: true,
+        email: true,
+        user_roles: {
+          select: {
+            roles: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
+
+    return users.map(user => ({
+      id: user.id,
+      full_name: user.full_name,
+      email: user.email,
+      roles: user.user_roles.map(ur => ur.roles.name),
+    }));
   }
 }
