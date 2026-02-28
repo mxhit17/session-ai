@@ -423,14 +423,6 @@ export type reviewsOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type reviewsCreateNestedManyWithoutSessionsInput = {
   create?: Prisma.XOR<Prisma.reviewsCreateWithoutSessionsInput, Prisma.reviewsUncheckedCreateWithoutSessionsInput> | Prisma.reviewsCreateWithoutSessionsInput[] | Prisma.reviewsUncheckedCreateWithoutSessionsInput[]
   connectOrCreate?: Prisma.reviewsCreateOrConnectWithoutSessionsInput | Prisma.reviewsCreateOrConnectWithoutSessionsInput[]

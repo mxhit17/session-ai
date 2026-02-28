@@ -396,7 +396,9 @@ export const ModelName = {
   time_slots: 'time_slots',
   tracks: 'tracks',
   user_roles: 'user_roles',
-  users: 'users'
+  users: 'users',
+  event_reviewers: 'event_reviewers',
+  session_review_assignments: 'session_review_assignments'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -412,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "audit_logs" | "events" | "reviews" | "roles" | "rooms" | "scheduled_sessions" | "session_speakers" | "sessions" | "speaker_profiles" | "time_slots" | "tracks" | "user_roles" | "users"
+    modelProps: "audit_logs" | "events" | "reviews" | "roles" | "rooms" | "scheduled_sessions" | "session_speakers" | "sessions" | "speaker_profiles" | "time_slots" | "tracks" | "user_roles" | "users" | "event_reviewers" | "session_review_assignments"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1378,6 +1380,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    event_reviewers: {
+      payload: Prisma.$event_reviewersPayload<ExtArgs>
+      fields: Prisma.event_reviewersFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.event_reviewersFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.event_reviewersFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>
+        }
+        findFirst: {
+          args: Prisma.event_reviewersFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.event_reviewersFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>
+        }
+        findMany: {
+          args: Prisma.event_reviewersFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>[]
+        }
+        create: {
+          args: Prisma.event_reviewersCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>
+        }
+        createMany: {
+          args: Prisma.event_reviewersCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.event_reviewersCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>[]
+        }
+        delete: {
+          args: Prisma.event_reviewersDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>
+        }
+        update: {
+          args: Prisma.event_reviewersUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>
+        }
+        deleteMany: {
+          args: Prisma.event_reviewersDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.event_reviewersUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.event_reviewersUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>[]
+        }
+        upsert: {
+          args: Prisma.event_reviewersUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$event_reviewersPayload>
+        }
+        aggregate: {
+          args: Prisma.Event_reviewersAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEvent_reviewers>
+        }
+        groupBy: {
+          args: Prisma.event_reviewersGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Event_reviewersGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.event_reviewersCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Event_reviewersCountAggregateOutputType> | number
+        }
+      }
+    }
+    session_review_assignments: {
+      payload: Prisma.$session_review_assignmentsPayload<ExtArgs>
+      fields: Prisma.session_review_assignmentsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.session_review_assignmentsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.session_review_assignmentsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>
+        }
+        findFirst: {
+          args: Prisma.session_review_assignmentsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.session_review_assignmentsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>
+        }
+        findMany: {
+          args: Prisma.session_review_assignmentsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>[]
+        }
+        create: {
+          args: Prisma.session_review_assignmentsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>
+        }
+        createMany: {
+          args: Prisma.session_review_assignmentsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.session_review_assignmentsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>[]
+        }
+        delete: {
+          args: Prisma.session_review_assignmentsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>
+        }
+        update: {
+          args: Prisma.session_review_assignmentsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>
+        }
+        deleteMany: {
+          args: Prisma.session_review_assignmentsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.session_review_assignmentsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.session_review_assignmentsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>[]
+        }
+        upsert: {
+          args: Prisma.session_review_assignmentsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$session_review_assignmentsPayload>
+        }
+        aggregate: {
+          args: Prisma.Session_review_assignmentsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSession_review_assignments>
+        }
+        groupBy: {
+          args: Prisma.session_review_assignmentsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Session_review_assignmentsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.session_review_assignmentsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Session_review_assignmentsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1446,7 +1596,8 @@ export const EventsScalarFieldEnum = {
   deleted_at: 'deleted_at',
   cfp_open: 'cfp_open',
   cfp_start: 'cfp_start',
-  cfp_end: 'cfp_end'
+  cfp_end: 'cfp_end',
+  reviewers_per_session: 'reviewers_per_session'
 } as const
 
 export type EventsScalarFieldEnum = (typeof EventsScalarFieldEnum)[keyof typeof EventsScalarFieldEnum]
@@ -1569,6 +1720,25 @@ export const UsersScalarFieldEnum = {
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const Event_reviewersScalarFieldEnum = {
+  id: 'id',
+  event_id: 'event_id',
+  reviewer_id: 'reviewer_id'
+} as const
+
+export type Event_reviewersScalarFieldEnum = (typeof Event_reviewersScalarFieldEnum)[keyof typeof Event_reviewersScalarFieldEnum]
+
+
+export const Session_review_assignmentsScalarFieldEnum = {
+  id: 'id',
+  session_id: 'session_id',
+  reviewer_id: 'reviewer_id',
+  assigned_at: 'assigned_at'
+} as const
+
+export type Session_review_assignmentsScalarFieldEnum = (typeof Session_review_assignmentsScalarFieldEnum)[keyof typeof Session_review_assignmentsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1802,6 +1972,8 @@ export type GlobalOmitConfig = {
   tracks?: Prisma.tracksOmit
   user_roles?: Prisma.user_rolesOmit
   users?: Prisma.usersOmit
+  event_reviewers?: Prisma.event_reviewersOmit
+  session_review_assignments?: Prisma.session_review_assignmentsOmit
 }
 
 /* Types for Logging */

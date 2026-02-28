@@ -82,3 +82,13 @@ export type user_roles = Prisma.user_rolesModel
  * 
  */
 export type users = Prisma.usersModel
+/**
+ * Model event_reviewers
+ * 
+ */
+export type event_reviewers = Prisma.event_reviewersModel
+/**
+ * Model session_review_assignments
+ * 
+ */
+export type session_review_assignments = Prisma.session_review_assignmentsModel

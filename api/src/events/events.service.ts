@@ -190,6 +190,9 @@ export class EventsService {
         timezone: true,
         is_public: true,
         created_at: true,
+        cfp_open: true,
+        cfp_start: true,
+        cfp_end: true,
       },
     });
 

@@ -206,8 +206,10 @@ export type usersWhereInput = {
   created_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
   deleted_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
+  event_reviewers?: Prisma.Event_reviewersListRelationFilter
   events?: Prisma.EventsListRelationFilter
   reviews?: Prisma.ReviewsListRelationFilter
+  session_review_assignments?: Prisma.Session_review_assignmentsListRelationFilter
   speaker_profiles?: Prisma.XOR<Prisma.Speaker_profilesNullableScalarRelationFilter, Prisma.speaker_profilesWhereInput> | null
   user_roles?: Prisma.User_rolesListRelationFilter
 }
@@ -221,8 +223,10 @@ export type usersOrderByWithRelationInput = {
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  event_reviewers?: Prisma.event_reviewersOrderByRelationAggregateInput
   events?: Prisma.eventsOrderByRelationAggregateInput
   reviews?: Prisma.reviewsOrderByRelationAggregateInput
+  session_review_assignments?: Prisma.session_review_assignmentsOrderByRelationAggregateInput
   speaker_profiles?: Prisma.speaker_profilesOrderByWithRelationInput
   user_roles?: Prisma.user_rolesOrderByRelationAggregateInput
 }
@@ -239,8 +243,10 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
   deleted_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
+  event_reviewers?: Prisma.Event_reviewersListRelationFilter
   events?: Prisma.EventsListRelationFilter
   reviews?: Prisma.ReviewsListRelationFilter
+  session_review_assignments?: Prisma.Session_review_assignmentsListRelationFilter
   speaker_profiles?: Prisma.XOR<Prisma.Speaker_profilesNullableScalarRelationFilter, Prisma.speaker_profilesWhereInput> | null
   user_roles?: Prisma.User_rolesListRelationFilter
 }, "id" | "email">
@@ -282,8 +288,10 @@ export type usersCreateInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   reviews?: Prisma.reviewsCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutUsersInput
   speaker_profiles?: Prisma.speaker_profilesCreateNestedOneWithoutUsersInput
   user_roles?: Prisma.user_rolesCreateNestedManyWithoutUsersInput
 }
@@ -297,8 +305,10 @@ export type usersUncheckedCreateInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutUsersInput
   speaker_profiles?: Prisma.speaker_profilesUncheckedCreateNestedOneWithoutUsersInput
   user_roles?: Prisma.user_rolesUncheckedCreateNestedManyWithoutUsersInput
 }
@@ -312,8 +322,10 @@ export type usersUpdateInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   reviews?: Prisma.reviewsUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutUsersNestedInput
   speaker_profiles?: Prisma.speaker_profilesUpdateOneWithoutUsersNestedInput
   user_roles?: Prisma.user_rolesUpdateManyWithoutUsersNestedInput
 }
@@ -327,8 +339,10 @@ export type usersUncheckedUpdateInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutUsersNestedInput
   speaker_profiles?: Prisma.speaker_profilesUncheckedUpdateOneWithoutUsersNestedInput
   user_roles?: Prisma.user_rolesUncheckedUpdateManyWithoutUsersNestedInput
 }
@@ -471,6 +485,34 @@ export type usersUpdateOneRequiredWithoutUser_rolesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutUser_rolesInput, Prisma.usersUpdateWithoutUser_rolesInput>, Prisma.usersUncheckedUpdateWithoutUser_rolesInput>
 }
 
+export type usersCreateNestedOneWithoutEvent_reviewersInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutEvent_reviewersInput, Prisma.usersUncheckedCreateWithoutEvent_reviewersInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutEvent_reviewersInput
+  connect?: Prisma.usersWhereUniqueInput
+}
+
+export type usersUpdateOneRequiredWithoutEvent_reviewersNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutEvent_reviewersInput, Prisma.usersUncheckedCreateWithoutEvent_reviewersInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutEvent_reviewersInput
+  upsert?: Prisma.usersUpsertWithoutEvent_reviewersInput
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutEvent_reviewersInput, Prisma.usersUpdateWithoutEvent_reviewersInput>, Prisma.usersUncheckedUpdateWithoutEvent_reviewersInput>
+}
+
+export type usersCreateNestedOneWithoutSession_review_assignmentsInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutSession_review_assignmentsInput, Prisma.usersUncheckedCreateWithoutSession_review_assignmentsInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutSession_review_assignmentsInput
+  connect?: Prisma.usersWhereUniqueInput
+}
+
+export type usersUpdateOneRequiredWithoutSession_review_assignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutSession_review_assignmentsInput, Prisma.usersUncheckedCreateWithoutSession_review_assignmentsInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutSession_review_assignmentsInput
+  upsert?: Prisma.usersUpsertWithoutSession_review_assignmentsInput
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutSession_review_assignmentsInput, Prisma.usersUpdateWithoutSession_review_assignmentsInput>, Prisma.usersUncheckedUpdateWithoutSession_review_assignmentsInput>
+}
+
 export type usersCreateWithoutEventsInput = {
   id?: string
   full_name: string
@@ -480,7 +522,9 @@ export type usersCreateWithoutEventsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersCreateNestedManyWithoutUsersInput
   reviews?: Prisma.reviewsCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutUsersInput
   speaker_profiles?: Prisma.speaker_profilesCreateNestedOneWithoutUsersInput
   user_roles?: Prisma.user_rolesCreateNestedManyWithoutUsersInput
 }
@@ -494,7 +538,9 @@ export type usersUncheckedCreateWithoutEventsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedCreateNestedManyWithoutUsersInput
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutUsersInput
   speaker_profiles?: Prisma.speaker_profilesUncheckedCreateNestedOneWithoutUsersInput
   user_roles?: Prisma.user_rolesUncheckedCreateNestedManyWithoutUsersInput
 }
@@ -524,7 +570,9 @@ export type usersUpdateWithoutEventsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUpdateManyWithoutUsersNestedInput
   reviews?: Prisma.reviewsUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutUsersNestedInput
   speaker_profiles?: Prisma.speaker_profilesUpdateOneWithoutUsersNestedInput
   user_roles?: Prisma.user_rolesUpdateManyWithoutUsersNestedInput
 }
@@ -538,7 +586,9 @@ export type usersUncheckedUpdateWithoutEventsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedUpdateManyWithoutUsersNestedInput
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutUsersNestedInput
   speaker_profiles?: Prisma.speaker_profilesUncheckedUpdateOneWithoutUsersNestedInput
   user_roles?: Prisma.user_rolesUncheckedUpdateManyWithoutUsersNestedInput
 }
@@ -552,7 +602,9 @@ export type usersCreateWithoutReviewsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutUsersInput
   speaker_profiles?: Prisma.speaker_profilesCreateNestedOneWithoutUsersInput
   user_roles?: Prisma.user_rolesCreateNestedManyWithoutUsersInput
 }
@@ -566,7 +618,9 @@ export type usersUncheckedCreateWithoutReviewsInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutUsersInput
   speaker_profiles?: Prisma.speaker_profilesUncheckedCreateNestedOneWithoutUsersInput
   user_roles?: Prisma.user_rolesUncheckedCreateNestedManyWithoutUsersInput
 }
@@ -596,7 +650,9 @@ export type usersUpdateWithoutReviewsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutUsersNestedInput
   speaker_profiles?: Prisma.speaker_profilesUpdateOneWithoutUsersNestedInput
   user_roles?: Prisma.user_rolesUpdateManyWithoutUsersNestedInput
 }
@@ -610,7 +666,9 @@ export type usersUncheckedUpdateWithoutReviewsInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutUsersNestedInput
   speaker_profiles?: Prisma.speaker_profilesUncheckedUpdateOneWithoutUsersNestedInput
   user_roles?: Prisma.user_rolesUncheckedUpdateManyWithoutUsersNestedInput
 }
@@ -624,8 +682,10 @@ export type usersCreateWithoutSpeaker_profilesInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   reviews?: Prisma.reviewsCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutUsersInput
   user_roles?: Prisma.user_rolesCreateNestedManyWithoutUsersInput
 }
 
@@ -638,8 +698,10 @@ export type usersUncheckedCreateWithoutSpeaker_profilesInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutUsersInput
   user_roles?: Prisma.user_rolesUncheckedCreateNestedManyWithoutUsersInput
 }
 
@@ -668,8 +730,10 @@ export type usersUpdateWithoutSpeaker_profilesInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   reviews?: Prisma.reviewsUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutUsersNestedInput
   user_roles?: Prisma.user_rolesUpdateManyWithoutUsersNestedInput
 }
 
@@ -682,8 +746,10 @@ export type usersUncheckedUpdateWithoutSpeaker_profilesInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutUsersNestedInput
   user_roles?: Prisma.user_rolesUncheckedUpdateManyWithoutUsersNestedInput
 }
 
@@ -696,8 +762,10 @@ export type usersCreateWithoutUser_rolesInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   reviews?: Prisma.reviewsCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutUsersInput
   speaker_profiles?: Prisma.speaker_profilesCreateNestedOneWithoutUsersInput
 }
 
@@ -710,8 +778,10 @@ export type usersUncheckedCreateWithoutUser_rolesInput = {
   created_at?: Date | string | null
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutUsersInput
   speaker_profiles?: Prisma.speaker_profilesUncheckedCreateNestedOneWithoutUsersInput
 }
 
@@ -740,8 +810,10 @@ export type usersUpdateWithoutUser_rolesInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   reviews?: Prisma.reviewsUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutUsersNestedInput
   speaker_profiles?: Prisma.speaker_profilesUpdateOneWithoutUsersNestedInput
 }
 
@@ -754,9 +826,171 @@ export type usersUncheckedUpdateWithoutUser_rolesInput = {
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedUpdateManyWithoutUsersNestedInput
+  events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
+  reviews?: Prisma.reviewsUncheckedUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutUsersNestedInput
+  speaker_profiles?: Prisma.speaker_profilesUncheckedUpdateOneWithoutUsersNestedInput
+}
+
+export type usersCreateWithoutEvent_reviewersInput = {
+  id?: string
+  full_name: string
+  email: string
+  password_hash: string
+  is_active?: boolean | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  deleted_at?: Date | string | null
+  events?: Prisma.eventsCreateNestedManyWithoutUsersInput
+  reviews?: Prisma.reviewsCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutUsersInput
+  speaker_profiles?: Prisma.speaker_profilesCreateNestedOneWithoutUsersInput
+  user_roles?: Prisma.user_rolesCreateNestedManyWithoutUsersInput
+}
+
+export type usersUncheckedCreateWithoutEvent_reviewersInput = {
+  id?: string
+  full_name: string
+  email: string
+  password_hash: string
+  is_active?: boolean | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  deleted_at?: Date | string | null
+  events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
+  reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutUsersInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutUsersInput
+  speaker_profiles?: Prisma.speaker_profilesUncheckedCreateNestedOneWithoutUsersInput
+  user_roles?: Prisma.user_rolesUncheckedCreateNestedManyWithoutUsersInput
+}
+
+export type usersCreateOrConnectWithoutEvent_reviewersInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutEvent_reviewersInput, Prisma.usersUncheckedCreateWithoutEvent_reviewersInput>
+}
+
+export type usersUpsertWithoutEvent_reviewersInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutEvent_reviewersInput, Prisma.usersUncheckedUpdateWithoutEvent_reviewersInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutEvent_reviewersInput, Prisma.usersUncheckedCreateWithoutEvent_reviewersInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutEvent_reviewersInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutEvent_reviewersInput, Prisma.usersUncheckedUpdateWithoutEvent_reviewersInput>
+}
+
+export type usersUpdateWithoutEvent_reviewersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
+  reviews?: Prisma.reviewsUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutUsersNestedInput
+  speaker_profiles?: Prisma.speaker_profilesUpdateOneWithoutUsersNestedInput
+  user_roles?: Prisma.user_rolesUpdateManyWithoutUsersNestedInput
+}
+
+export type usersUncheckedUpdateWithoutEvent_reviewersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
+  reviews?: Prisma.reviewsUncheckedUpdateManyWithoutUsersNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutUsersNestedInput
+  speaker_profiles?: Prisma.speaker_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  user_roles?: Prisma.user_rolesUncheckedUpdateManyWithoutUsersNestedInput
+}
+
+export type usersCreateWithoutSession_review_assignmentsInput = {
+  id?: string
+  full_name: string
+  email: string
+  password_hash: string
+  is_active?: boolean | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersCreateNestedManyWithoutUsersInput
+  events?: Prisma.eventsCreateNestedManyWithoutUsersInput
+  reviews?: Prisma.reviewsCreateNestedManyWithoutUsersInput
+  speaker_profiles?: Prisma.speaker_profilesCreateNestedOneWithoutUsersInput
+  user_roles?: Prisma.user_rolesCreateNestedManyWithoutUsersInput
+}
+
+export type usersUncheckedCreateWithoutSession_review_assignmentsInput = {
+  id?: string
+  full_name: string
+  email: string
+  password_hash: string
+  is_active?: boolean | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  deleted_at?: Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedCreateNestedManyWithoutUsersInput
+  events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
+  reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutUsersInput
+  speaker_profiles?: Prisma.speaker_profilesUncheckedCreateNestedOneWithoutUsersInput
+  user_roles?: Prisma.user_rolesUncheckedCreateNestedManyWithoutUsersInput
+}
+
+export type usersCreateOrConnectWithoutSession_review_assignmentsInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutSession_review_assignmentsInput, Prisma.usersUncheckedCreateWithoutSession_review_assignmentsInput>
+}
+
+export type usersUpsertWithoutSession_review_assignmentsInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutSession_review_assignmentsInput, Prisma.usersUncheckedUpdateWithoutSession_review_assignmentsInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutSession_review_assignmentsInput, Prisma.usersUncheckedCreateWithoutSession_review_assignmentsInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutSession_review_assignmentsInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutSession_review_assignmentsInput, Prisma.usersUncheckedUpdateWithoutSession_review_assignmentsInput>
+}
+
+export type usersUpdateWithoutSession_review_assignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUpdateManyWithoutUsersNestedInput
+  events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
+  reviews?: Prisma.reviewsUpdateManyWithoutUsersNestedInput
+  speaker_profiles?: Prisma.speaker_profilesUpdateOneWithoutUsersNestedInput
+  user_roles?: Prisma.user_rolesUpdateManyWithoutUsersNestedInput
+}
+
+export type usersUncheckedUpdateWithoutSession_review_assignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_reviewers?: Prisma.event_reviewersUncheckedUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutUsersNestedInput
   speaker_profiles?: Prisma.speaker_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  user_roles?: Prisma.user_rolesUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 
@@ -765,14 +999,18 @@ export type usersUncheckedUpdateWithoutUser_rolesInput = {
  */
 
 export type UsersCountOutputType = {
+  event_reviewers: number
   events: number
   reviews: number
+  session_review_assignments: number
   user_roles: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  event_reviewers?: boolean | UsersCountOutputTypeCountEvent_reviewersArgs
   events?: boolean | UsersCountOutputTypeCountEventsArgs
   reviews?: boolean | UsersCountOutputTypeCountReviewsArgs
+  session_review_assignments?: boolean | UsersCountOutputTypeCountSession_review_assignmentsArgs
   user_roles?: boolean | UsersCountOutputTypeCountUser_rolesArgs
 }
 
@@ -784,6 +1022,13 @@ export type UsersCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
    * Select specific fields to fetch from the UsersCountOutputType
    */
   select?: Prisma.UsersCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountEvent_reviewersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.event_reviewersWhereInput
 }
 
 /**
@@ -803,6 +1048,13 @@ export type UsersCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.E
 /**
  * UsersCountOutputType without action
  */
+export type UsersCountOutputTypeCountSession_review_assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.session_review_assignmentsWhereInput
+}
+
+/**
+ * UsersCountOutputType without action
+ */
 export type UsersCountOutputTypeCountUser_rolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.user_rolesWhereInput
 }
@@ -817,8 +1069,10 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   created_at?: boolean
   updated_at?: boolean
   deleted_at?: boolean
+  event_reviewers?: boolean | Prisma.users$event_reviewersArgs<ExtArgs>
   events?: boolean | Prisma.users$eventsArgs<ExtArgs>
   reviews?: boolean | Prisma.users$reviewsArgs<ExtArgs>
+  session_review_assignments?: boolean | Prisma.users$session_review_assignmentsArgs<ExtArgs>
   speaker_profiles?: boolean | Prisma.users$speaker_profilesArgs<ExtArgs>
   user_roles?: boolean | Prisma.users$user_rolesArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
@@ -859,8 +1113,10 @@ export type usersSelectScalar = {
 
 export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "full_name" | "email" | "password_hash" | "is_active" | "created_at" | "updated_at" | "deleted_at", ExtArgs["result"]["users"]>
 export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  event_reviewers?: boolean | Prisma.users$event_reviewersArgs<ExtArgs>
   events?: boolean | Prisma.users$eventsArgs<ExtArgs>
   reviews?: boolean | Prisma.users$reviewsArgs<ExtArgs>
+  session_review_assignments?: boolean | Prisma.users$session_review_assignmentsArgs<ExtArgs>
   speaker_profiles?: boolean | Prisma.users$speaker_profilesArgs<ExtArgs>
   user_roles?: boolean | Prisma.users$user_rolesArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
@@ -871,8 +1127,10 @@ export type usersIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "users"
   objects: {
+    event_reviewers: Prisma.$event_reviewersPayload<ExtArgs>[]
     events: Prisma.$eventsPayload<ExtArgs>[]
     reviews: Prisma.$reviewsPayload<ExtArgs>[]
+    session_review_assignments: Prisma.$session_review_assignmentsPayload<ExtArgs>[]
     speaker_profiles: Prisma.$speaker_profilesPayload<ExtArgs> | null
     user_roles: Prisma.$user_rolesPayload<ExtArgs>[]
   }
@@ -1279,8 +1537,10 @@ readonly fields: usersFieldRefs;
  */
 export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  event_reviewers<T extends Prisma.users$event_reviewersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$event_reviewersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$event_reviewersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.users$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.users$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  session_review_assignments<T extends Prisma.users$session_review_assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$session_review_assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$session_review_assignmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   speaker_profiles<T extends Prisma.users$speaker_profilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$speaker_profilesArgs<ExtArgs>>): Prisma.Prisma__speaker_profilesClient<runtime.Types.Result.GetResult<Prisma.$speaker_profilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   user_roles<T extends Prisma.users$user_rolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$user_rolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$user_rolesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1708,6 +1968,30 @@ export type usersDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * users.event_reviewers
+ */
+export type users$event_reviewersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the event_reviewers
+   */
+  select?: Prisma.event_reviewersSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the event_reviewers
+   */
+  omit?: Prisma.event_reviewersOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.event_reviewersInclude<ExtArgs> | null
+  where?: Prisma.event_reviewersWhereInput
+  orderBy?: Prisma.event_reviewersOrderByWithRelationInput | Prisma.event_reviewersOrderByWithRelationInput[]
+  cursor?: Prisma.event_reviewersWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Event_reviewersScalarFieldEnum | Prisma.Event_reviewersScalarFieldEnum[]
+}
+
+/**
  * users.events
  */
 export type users$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1753,6 +2037,30 @@ export type users$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.ReviewsScalarFieldEnum | Prisma.ReviewsScalarFieldEnum[]
+}
+
+/**
+ * users.session_review_assignments
+ */
+export type users$session_review_assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the session_review_assignments
+   */
+  select?: Prisma.session_review_assignmentsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the session_review_assignments
+   */
+  omit?: Prisma.session_review_assignmentsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.session_review_assignmentsInclude<ExtArgs> | null
+  where?: Prisma.session_review_assignmentsWhereInput
+  orderBy?: Prisma.session_review_assignmentsOrderByWithRelationInput | Prisma.session_review_assignmentsOrderByWithRelationInput[]
+  cursor?: Prisma.session_review_assignmentsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Session_review_assignmentsScalarFieldEnum | Prisma.Session_review_assignmentsScalarFieldEnum[]
 }
 
 /**

@@ -20,26 +20,28 @@ model audit_logs {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model events {
-  id          String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  title       String
-  description String?
-  start_date  DateTime     @db.Date
-  end_date    DateTime     @db.Date
-  location    String?
-  timezone    String
-  is_public   Boolean?     @default(true)
-  created_by  String?      @db.Uuid
-  created_at  DateTime?    @default(now()) @db.Timestamp(6)
-  updated_at  DateTime?    @default(now()) @db.Timestamp(6)
-  deleted_at  DateTime?    @db.Timestamp(6)
-  cfp_open    Boolean?     @default(false)
-  cfp_start   DateTime?    @db.Timestamp(6)
-  cfp_end     DateTime?    @db.Timestamp(6)
-  users       users?       @relation(fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  rooms       rooms[]
-  sessions    sessions[]
-  time_slots  time_slots[]
-  tracks      tracks[]
+  id                    String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  title                 String
+  description           String?
+  start_date            DateTime          @db.Date
+  end_date              DateTime          @db.Date
+  location              String?
+  timezone              String
+  is_public             Boolean?          @default(true)
+  created_by            String?           @db.Uuid
+  created_at            DateTime?         @default(now()) @db.Timestamp(6)
+  updated_at            DateTime?         @default(now()) @db.Timestamp(6)
+  deleted_at            DateTime?         @db.Timestamp(6)
+  cfp_open              Boolean?          @default(false)
+  cfp_start             DateTime?         @db.Timestamp(6)
+  cfp_end               DateTime?         @db.Timestamp(6)
+  reviewers_per_session Int?              @default(1)
+  event_reviewers       event_reviewers[]
+  users                 users?            @relation(fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  rooms                 rooms[]
+  sessions              sessions[]
+  time_slots            time_slots[]
+  tracks                tracks[]
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
@@ -98,22 +100,23 @@ model session_speakers {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model sessions {
-  id                 String                 @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  event_id           String?                @db.Uuid
-  track_id           String?                @db.Uuid
-  title              String
-  abstract           String
-  level              String?
-  status             String?
-  embedding          Unsupported("vector")?
-  created_at         DateTime?              @default(now()) @db.Timestamp(6)
-  updated_at         DateTime?              @default(now()) @db.Timestamp(6)
-  deleted_at         DateTime?              @db.Timestamp(6)
-  reviews            reviews[]
-  scheduled_sessions scheduled_sessions?
-  session_speakers   session_speakers[]
-  events             events?                @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  tracks             tracks?                @relation(fields: [track_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id                         String                       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  event_id                   String?                      @db.Uuid
+  track_id                   String?                      @db.Uuid
+  title                      String
+  abstract                   String
+  level                      String?
+  status                     String?
+  embedding                  Unsupported("vector")?
+  created_at                 DateTime?                    @default(now()) @db.Timestamp(6)
+  updated_at                 DateTime?                    @default(now()) @db.Timestamp(6)
+  deleted_at                 DateTime?                    @db.Timestamp(6)
+  reviews                    reviews[]
+  scheduled_sessions         scheduled_sessions?
+  session_review_assignments session_review_assignments[]
+  session_speakers           session_speakers[]
+  events                     events?                      @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tracks                     tracks?                      @relation(fields: [track_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([embedding], map: "idx_sessions_embedding")
   @@index([event_id], map: "idx_sessions_event")
@@ -164,18 +167,41 @@ model user_roles {
 }
 
 model users {
-  id               String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  full_name        String
-  email            String            @unique
-  password_hash    String
-  is_active        Boolean?          @default(true)
-  created_at       DateTime?         @default(now()) @db.Timestamp(6)
-  updated_at       DateTime?         @default(now()) @db.Timestamp(6)
-  deleted_at       DateTime?         @db.Timestamp(6)
-  events           events[]
-  reviews          reviews[]
-  speaker_profiles speaker_profiles?
-  user_roles       user_roles[]
+  id                         String                       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  full_name                  String
+  email                      String                       @unique
+  password_hash              String
+  is_active                  Boolean?                     @default(true)
+  created_at                 DateTime?                    @default(now()) @db.Timestamp(6)
+  updated_at                 DateTime?                    @default(now()) @db.Timestamp(6)
+  deleted_at                 DateTime?                    @db.Timestamp(6)
+  event_reviewers            event_reviewers[]
+  events                     events[]
+  reviews                    reviews[]
+  session_review_assignments session_review_assignments[]
+  speaker_profiles           speaker_profiles?
+  user_roles                 user_roles[]
 
   @@index([email], map: "idx_users_email")
+}
+
+model event_reviewers {
+  id          String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  event_id    String @db.Uuid
+  reviewer_id String @db.Uuid
+  events      events @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_event_reviewers_event")
+  users       users  @relation(fields: [reviewer_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_event_reviewers_reviewer")
+
+  @@unique([event_id, reviewer_id], map: "unique_event_reviewer")
+}
+
+model session_review_assignments {
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  session_id  String   @db.Uuid
+  reviewer_id String   @db.Uuid
+  assigned_at DateTime @default(now()) @db.Timestamp(6)
+  users       users    @relation(fields: [reviewer_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_session_review_assignments_reviewer")
+  sessions    sessions @relation(fields: [session_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_session_review_assignments_session")
+
+  @@unique([session_id, reviewer_id], map: "unique_session_reviewer")
 }

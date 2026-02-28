@@ -224,6 +224,7 @@ export type sessionsWhereInput = {
   deleted_at?: Prisma.DateTimeNullableFilter<"sessions"> | Date | string | null
   reviews?: Prisma.ReviewsListRelationFilter
   scheduled_sessions?: Prisma.XOR<Prisma.Scheduled_sessionsNullableScalarRelationFilter, Prisma.scheduled_sessionsWhereInput> | null
+  session_review_assignments?: Prisma.Session_review_assignmentsListRelationFilter
   session_speakers?: Prisma.Session_speakersListRelationFilter
   events?: Prisma.XOR<Prisma.EventsNullableScalarRelationFilter, Prisma.eventsWhereInput> | null
   tracks?: Prisma.XOR<Prisma.TracksNullableScalarRelationFilter, Prisma.tracksWhereInput> | null
@@ -242,6 +243,7 @@ export type sessionsOrderByWithRelationInput = {
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   reviews?: Prisma.reviewsOrderByRelationAggregateInput
   scheduled_sessions?: Prisma.scheduled_sessionsOrderByWithRelationInput
+  session_review_assignments?: Prisma.session_review_assignmentsOrderByRelationAggregateInput
   session_speakers?: Prisma.session_speakersOrderByRelationAggregateInput
   events?: Prisma.eventsOrderByWithRelationInput
   tracks?: Prisma.tracksOrderByWithRelationInput
@@ -263,6 +265,7 @@ export type sessionsWhereUniqueInput = Prisma.AtLeast<{
   deleted_at?: Prisma.DateTimeNullableFilter<"sessions"> | Date | string | null
   reviews?: Prisma.ReviewsListRelationFilter
   scheduled_sessions?: Prisma.XOR<Prisma.Scheduled_sessionsNullableScalarRelationFilter, Prisma.scheduled_sessionsWhereInput> | null
+  session_review_assignments?: Prisma.Session_review_assignmentsListRelationFilter
   session_speakers?: Prisma.Session_speakersListRelationFilter
   events?: Prisma.XOR<Prisma.EventsNullableScalarRelationFilter, Prisma.eventsWhereInput> | null
   tracks?: Prisma.XOR<Prisma.TracksNullableScalarRelationFilter, Prisma.tracksWhereInput> | null
@@ -311,6 +314,7 @@ export type sessionsCreateInput = {
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsCreateNestedManyWithoutSessionsInput
   scheduled_sessions?: Prisma.scheduled_sessionsCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersCreateNestedManyWithoutSessionsInput
   events?: Prisma.eventsCreateNestedOneWithoutSessionsInput
   tracks?: Prisma.tracksCreateNestedOneWithoutSessionsInput
@@ -329,6 +333,7 @@ export type sessionsUncheckedCreateInput = {
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutSessionsInput
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersUncheckedCreateNestedManyWithoutSessionsInput
 }
 
@@ -343,6 +348,7 @@ export type sessionsUpdateInput = {
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUpdateManyWithoutSessionsNestedInput
   scheduled_sessions?: Prisma.scheduled_sessionsUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUpdateManyWithoutSessionsNestedInput
   events?: Prisma.eventsUpdateOneWithoutSessionsNestedInput
   tracks?: Prisma.tracksUpdateOneWithoutSessionsNestedInput
@@ -361,6 +367,7 @@ export type sessionsUncheckedUpdateInput = {
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutSessionsNestedInput
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUncheckedUpdateManyWithoutSessionsNestedInput
 }
 
@@ -588,6 +595,20 @@ export type sessionsUncheckedUpdateManyWithoutTracksNestedInput = {
   deleteMany?: Prisma.sessionsScalarWhereInput | Prisma.sessionsScalarWhereInput[]
 }
 
+export type sessionsCreateNestedOneWithoutSession_review_assignmentsInput = {
+  create?: Prisma.XOR<Prisma.sessionsCreateWithoutSession_review_assignmentsInput, Prisma.sessionsUncheckedCreateWithoutSession_review_assignmentsInput>
+  connectOrCreate?: Prisma.sessionsCreateOrConnectWithoutSession_review_assignmentsInput
+  connect?: Prisma.sessionsWhereUniqueInput
+}
+
+export type sessionsUpdateOneRequiredWithoutSession_review_assignmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.sessionsCreateWithoutSession_review_assignmentsInput, Prisma.sessionsUncheckedCreateWithoutSession_review_assignmentsInput>
+  connectOrCreate?: Prisma.sessionsCreateOrConnectWithoutSession_review_assignmentsInput
+  upsert?: Prisma.sessionsUpsertWithoutSession_review_assignmentsInput
+  connect?: Prisma.sessionsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.sessionsUpdateToOneWithWhereWithoutSession_review_assignmentsInput, Prisma.sessionsUpdateWithoutSession_review_assignmentsInput>, Prisma.sessionsUncheckedUpdateWithoutSession_review_assignmentsInput>
+}
+
 export type sessionsCreateWithoutEventsInput = {
   id?: string
   title: string
@@ -599,6 +620,7 @@ export type sessionsCreateWithoutEventsInput = {
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsCreateNestedManyWithoutSessionsInput
   scheduled_sessions?: Prisma.scheduled_sessionsCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersCreateNestedManyWithoutSessionsInput
   tracks?: Prisma.tracksCreateNestedOneWithoutSessionsInput
 }
@@ -615,6 +637,7 @@ export type sessionsUncheckedCreateWithoutEventsInput = {
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutSessionsInput
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersUncheckedCreateNestedManyWithoutSessionsInput
 }
 
@@ -670,6 +693,7 @@ export type sessionsCreateWithoutReviewsInput = {
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
   scheduled_sessions?: Prisma.scheduled_sessionsCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersCreateNestedManyWithoutSessionsInput
   events?: Prisma.eventsCreateNestedOneWithoutSessionsInput
   tracks?: Prisma.tracksCreateNestedOneWithoutSessionsInput
@@ -687,6 +711,7 @@ export type sessionsUncheckedCreateWithoutReviewsInput = {
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersUncheckedCreateNestedManyWithoutSessionsInput
 }
 
@@ -716,6 +741,7 @@ export type sessionsUpdateWithoutReviewsInput = {
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduled_sessions?: Prisma.scheduled_sessionsUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUpdateManyWithoutSessionsNestedInput
   events?: Prisma.eventsUpdateOneWithoutSessionsNestedInput
   tracks?: Prisma.tracksUpdateOneWithoutSessionsNestedInput
@@ -733,6 +759,7 @@ export type sessionsUncheckedUpdateWithoutReviewsInput = {
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUncheckedUpdateManyWithoutSessionsNestedInput
 }
 
@@ -746,6 +773,7 @@ export type sessionsCreateWithoutScheduled_sessionsInput = {
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsCreateNestedManyWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersCreateNestedManyWithoutSessionsInput
   events?: Prisma.eventsCreateNestedOneWithoutSessionsInput
   tracks?: Prisma.tracksCreateNestedOneWithoutSessionsInput
@@ -763,6 +791,7 @@ export type sessionsUncheckedCreateWithoutScheduled_sessionsInput = {
   updated_at?: Date | string | null
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersUncheckedCreateNestedManyWithoutSessionsInput
 }
 
@@ -792,6 +821,7 @@ export type sessionsUpdateWithoutScheduled_sessionsInput = {
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUpdateManyWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUpdateManyWithoutSessionsNestedInput
   events?: Prisma.eventsUpdateOneWithoutSessionsNestedInput
   tracks?: Prisma.tracksUpdateOneWithoutSessionsNestedInput
@@ -809,6 +839,7 @@ export type sessionsUncheckedUpdateWithoutScheduled_sessionsInput = {
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUncheckedUpdateManyWithoutSessionsNestedInput
 }
 
@@ -823,6 +854,7 @@ export type sessionsCreateWithoutSession_speakersInput = {
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsCreateNestedManyWithoutSessionsInput
   scheduled_sessions?: Prisma.scheduled_sessionsCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutSessionsInput
   events?: Prisma.eventsCreateNestedOneWithoutSessionsInput
   tracks?: Prisma.tracksCreateNestedOneWithoutSessionsInput
 }
@@ -840,6 +872,7 @@ export type sessionsUncheckedCreateWithoutSession_speakersInput = {
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutSessionsInput
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutSessionsInput
 }
 
 export type sessionsCreateOrConnectWithoutSession_speakersInput = {
@@ -869,6 +902,7 @@ export type sessionsUpdateWithoutSession_speakersInput = {
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUpdateManyWithoutSessionsNestedInput
   scheduled_sessions?: Prisma.scheduled_sessionsUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutSessionsNestedInput
   events?: Prisma.eventsUpdateOneWithoutSessionsNestedInput
   tracks?: Prisma.tracksUpdateOneWithoutSessionsNestedInput
 }
@@ -886,6 +920,7 @@ export type sessionsUncheckedUpdateWithoutSession_speakersInput = {
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutSessionsNestedInput
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutSessionsNestedInput
 }
 
 export type sessionsCreateWithoutTracksInput = {
@@ -899,6 +934,7 @@ export type sessionsCreateWithoutTracksInput = {
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsCreateNestedManyWithoutSessionsInput
   scheduled_sessions?: Prisma.scheduled_sessionsCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersCreateNestedManyWithoutSessionsInput
   events?: Prisma.eventsCreateNestedOneWithoutSessionsInput
 }
@@ -915,6 +951,7 @@ export type sessionsUncheckedCreateWithoutTracksInput = {
   deleted_at?: Date | string | null
   reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutSessionsInput
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedCreateNestedOneWithoutSessionsInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedCreateNestedManyWithoutSessionsInput
   session_speakers?: Prisma.session_speakersUncheckedCreateNestedManyWithoutSessionsInput
 }
 
@@ -944,6 +981,86 @@ export type sessionsUpdateManyWithWhereWithoutTracksInput = {
   data: Prisma.XOR<Prisma.sessionsUpdateManyMutationInput, Prisma.sessionsUncheckedUpdateManyWithoutTracksInput>
 }
 
+export type sessionsCreateWithoutSession_review_assignmentsInput = {
+  id?: string
+  title: string
+  abstract: string
+  level?: string | null
+  status?: string | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  deleted_at?: Date | string | null
+  reviews?: Prisma.reviewsCreateNestedManyWithoutSessionsInput
+  scheduled_sessions?: Prisma.scheduled_sessionsCreateNestedOneWithoutSessionsInput
+  session_speakers?: Prisma.session_speakersCreateNestedManyWithoutSessionsInput
+  events?: Prisma.eventsCreateNestedOneWithoutSessionsInput
+  tracks?: Prisma.tracksCreateNestedOneWithoutSessionsInput
+}
+
+export type sessionsUncheckedCreateWithoutSession_review_assignmentsInput = {
+  id?: string
+  event_id?: string | null
+  track_id?: string | null
+  title: string
+  abstract: string
+  level?: string | null
+  status?: string | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  deleted_at?: Date | string | null
+  reviews?: Prisma.reviewsUncheckedCreateNestedManyWithoutSessionsInput
+  scheduled_sessions?: Prisma.scheduled_sessionsUncheckedCreateNestedOneWithoutSessionsInput
+  session_speakers?: Prisma.session_speakersUncheckedCreateNestedManyWithoutSessionsInput
+}
+
+export type sessionsCreateOrConnectWithoutSession_review_assignmentsInput = {
+  where: Prisma.sessionsWhereUniqueInput
+  create: Prisma.XOR<Prisma.sessionsCreateWithoutSession_review_assignmentsInput, Prisma.sessionsUncheckedCreateWithoutSession_review_assignmentsInput>
+}
+
+export type sessionsUpsertWithoutSession_review_assignmentsInput = {
+  update: Prisma.XOR<Prisma.sessionsUpdateWithoutSession_review_assignmentsInput, Prisma.sessionsUncheckedUpdateWithoutSession_review_assignmentsInput>
+  create: Prisma.XOR<Prisma.sessionsCreateWithoutSession_review_assignmentsInput, Prisma.sessionsUncheckedCreateWithoutSession_review_assignmentsInput>
+  where?: Prisma.sessionsWhereInput
+}
+
+export type sessionsUpdateToOneWithWhereWithoutSession_review_assignmentsInput = {
+  where?: Prisma.sessionsWhereInput
+  data: Prisma.XOR<Prisma.sessionsUpdateWithoutSession_review_assignmentsInput, Prisma.sessionsUncheckedUpdateWithoutSession_review_assignmentsInput>
+}
+
+export type sessionsUpdateWithoutSession_review_assignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  abstract?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviews?: Prisma.reviewsUpdateManyWithoutSessionsNestedInput
+  scheduled_sessions?: Prisma.scheduled_sessionsUpdateOneWithoutSessionsNestedInput
+  session_speakers?: Prisma.session_speakersUpdateManyWithoutSessionsNestedInput
+  events?: Prisma.eventsUpdateOneWithoutSessionsNestedInput
+  tracks?: Prisma.tracksUpdateOneWithoutSessionsNestedInput
+}
+
+export type sessionsUncheckedUpdateWithoutSession_review_assignmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  event_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  track_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  abstract?: Prisma.StringFieldUpdateOperationsInput | string
+  level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviews?: Prisma.reviewsUncheckedUpdateManyWithoutSessionsNestedInput
+  scheduled_sessions?: Prisma.scheduled_sessionsUncheckedUpdateOneWithoutSessionsNestedInput
+  session_speakers?: Prisma.session_speakersUncheckedUpdateManyWithoutSessionsNestedInput
+}
+
 export type sessionsCreateManyEventsInput = {
   id?: string
   track_id?: string | null
@@ -967,6 +1084,7 @@ export type sessionsUpdateWithoutEventsInput = {
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUpdateManyWithoutSessionsNestedInput
   scheduled_sessions?: Prisma.scheduled_sessionsUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUpdateManyWithoutSessionsNestedInput
   tracks?: Prisma.tracksUpdateOneWithoutSessionsNestedInput
 }
@@ -983,6 +1101,7 @@ export type sessionsUncheckedUpdateWithoutEventsInput = {
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutSessionsNestedInput
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUncheckedUpdateManyWithoutSessionsNestedInput
 }
 
@@ -1021,6 +1140,7 @@ export type sessionsUpdateWithoutTracksInput = {
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUpdateManyWithoutSessionsNestedInput
   scheduled_sessions?: Prisma.scheduled_sessionsUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUpdateManyWithoutSessionsNestedInput
   events?: Prisma.eventsUpdateOneWithoutSessionsNestedInput
 }
@@ -1037,6 +1157,7 @@ export type sessionsUncheckedUpdateWithoutTracksInput = {
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviews?: Prisma.reviewsUncheckedUpdateManyWithoutSessionsNestedInput
   scheduled_sessions?: Prisma.scheduled_sessionsUncheckedUpdateOneWithoutSessionsNestedInput
+  session_review_assignments?: Prisma.session_review_assignmentsUncheckedUpdateManyWithoutSessionsNestedInput
   session_speakers?: Prisma.session_speakersUncheckedUpdateManyWithoutSessionsNestedInput
 }
 
@@ -1059,11 +1180,13 @@ export type sessionsUncheckedUpdateManyWithoutTracksInput = {
 
 export type SessionsCountOutputType = {
   reviews: number
+  session_review_assignments: number
   session_speakers: number
 }
 
 export type SessionsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reviews?: boolean | SessionsCountOutputTypeCountReviewsArgs
+  session_review_assignments?: boolean | SessionsCountOutputTypeCountSession_review_assignmentsArgs
   session_speakers?: boolean | SessionsCountOutputTypeCountSession_speakersArgs
 }
 
@@ -1087,6 +1210,13 @@ export type SessionsCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Type
 /**
  * SessionsCountOutputType without action
  */
+export type SessionsCountOutputTypeCountSession_review_assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.session_review_assignmentsWhereInput
+}
+
+/**
+ * SessionsCountOutputType without action
+ */
 export type SessionsCountOutputTypeCountSession_speakersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.session_speakersWhereInput
 }
@@ -1105,6 +1235,7 @@ export type sessionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   deleted_at?: boolean
   reviews?: boolean | Prisma.sessions$reviewsArgs<ExtArgs>
   scheduled_sessions?: boolean | Prisma.sessions$scheduled_sessionsArgs<ExtArgs>
+  session_review_assignments?: boolean | Prisma.sessions$session_review_assignmentsArgs<ExtArgs>
   session_speakers?: boolean | Prisma.sessions$session_speakersArgs<ExtArgs>
   events?: boolean | Prisma.sessions$eventsArgs<ExtArgs>
   tracks?: boolean | Prisma.sessions$tracksArgs<ExtArgs>
@@ -1158,6 +1289,7 @@ export type sessionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type sessionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reviews?: boolean | Prisma.sessions$reviewsArgs<ExtArgs>
   scheduled_sessions?: boolean | Prisma.sessions$scheduled_sessionsArgs<ExtArgs>
+  session_review_assignments?: boolean | Prisma.sessions$session_review_assignmentsArgs<ExtArgs>
   session_speakers?: boolean | Prisma.sessions$session_speakersArgs<ExtArgs>
   events?: boolean | Prisma.sessions$eventsArgs<ExtArgs>
   tracks?: boolean | Prisma.sessions$tracksArgs<ExtArgs>
@@ -1177,6 +1309,7 @@ export type $sessionsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     reviews: Prisma.$reviewsPayload<ExtArgs>[]
     scheduled_sessions: Prisma.$scheduled_sessionsPayload<ExtArgs> | null
+    session_review_assignments: Prisma.$session_review_assignmentsPayload<ExtArgs>[]
     session_speakers: Prisma.$session_speakersPayload<ExtArgs>[]
     events: Prisma.$eventsPayload<ExtArgs> | null
     tracks: Prisma.$tracksPayload<ExtArgs> | null
@@ -1588,6 +1721,7 @@ export interface Prisma__sessionsClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   reviews<T extends Prisma.sessions$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sessions$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   scheduled_sessions<T extends Prisma.sessions$scheduled_sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sessions$scheduled_sessionsArgs<ExtArgs>>): Prisma.Prisma__scheduled_sessionsClient<runtime.Types.Result.GetResult<Prisma.$scheduled_sessionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  session_review_assignments<T extends Prisma.sessions$session_review_assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sessions$session_review_assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$session_review_assignmentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   session_speakers<T extends Prisma.sessions$session_speakersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sessions$session_speakersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$session_speakersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.sessions$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sessions$eventsArgs<ExtArgs>>): Prisma.Prisma__eventsClient<runtime.Types.Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tracks<T extends Prisma.sessions$tracksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.sessions$tracksArgs<ExtArgs>>): Prisma.Prisma__tracksClient<runtime.Types.Result.GetResult<Prisma.$tracksPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -2066,6 +2200,30 @@ export type sessions$scheduled_sessionsArgs<ExtArgs extends runtime.Types.Extens
    */
   include?: Prisma.scheduled_sessionsInclude<ExtArgs> | null
   where?: Prisma.scheduled_sessionsWhereInput
+}
+
+/**
+ * sessions.session_review_assignments
+ */
+export type sessions$session_review_assignmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the session_review_assignments
+   */
+  select?: Prisma.session_review_assignmentsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the session_review_assignments
+   */
+  omit?: Prisma.session_review_assignmentsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.session_review_assignmentsInclude<ExtArgs> | null
+  where?: Prisma.session_review_assignmentsWhereInput
+  orderBy?: Prisma.session_review_assignmentsOrderByWithRelationInput | Prisma.session_review_assignmentsOrderByWithRelationInput[]
+  cursor?: Prisma.session_review_assignmentsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Session_review_assignmentsScalarFieldEnum | Prisma.Session_review_assignmentsScalarFieldEnum[]
 }
 
 /**

@@ -63,7 +63,9 @@ export const ModelName = {
   time_slots: 'time_slots',
   tracks: 'tracks',
   user_roles: 'user_roles',
-  users: 'users'
+  users: 'users',
+  event_reviewers: 'event_reviewers',
+  session_review_assignments: 'session_review_assignments'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -111,7 +113,8 @@ export const EventsScalarFieldEnum = {
   deleted_at: 'deleted_at',
   cfp_open: 'cfp_open',
   cfp_start: 'cfp_start',
-  cfp_end: 'cfp_end'
+  cfp_end: 'cfp_end',
+  reviewers_per_session: 'reviewers_per_session'
 } as const
 
 export type EventsScalarFieldEnum = (typeof EventsScalarFieldEnum)[keyof typeof EventsScalarFieldEnum]
@@ -234,6 +237,25 @@ export const UsersScalarFieldEnum = {
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const Event_reviewersScalarFieldEnum = {
+  id: 'id',
+  event_id: 'event_id',
+  reviewer_id: 'reviewer_id'
+} as const
+
+export type Event_reviewersScalarFieldEnum = (typeof Event_reviewersScalarFieldEnum)[keyof typeof Event_reviewersScalarFieldEnum]
+
+
+export const Session_review_assignmentsScalarFieldEnum = {
+  id: 'id',
+  session_id: 'session_id',
+  reviewer_id: 'reviewer_id',
+  assigned_at: 'assigned_at'
+} as const
+
+export type Session_review_assignmentsScalarFieldEnum = (typeof Session_review_assignmentsScalarFieldEnum)[keyof typeof Session_review_assignmentsScalarFieldEnum]
 
 
 export const SortOrder = {
