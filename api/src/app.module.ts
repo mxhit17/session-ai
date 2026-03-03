@@ -9,6 +9,7 @@ import { SessionsModule } from './sessions/sessions.module';
 import { SpeakerModule } from './speaker/speaker.module';
 import { TrackModule } from './tracks/track.module';
 import { RoomsModule } from './rooms/rooms.module';
+import { ReviewerModule } from './reviewer/reviewer.module';
 
 
 @Module({
@@ -26,6 +27,7 @@ import { RoomsModule } from './rooms/rooms.module';
     SpeakerModule,
     TrackModule,
     RoomsModule,
+    ReviewerModule
   ],
 })
 export class AppModule {}
