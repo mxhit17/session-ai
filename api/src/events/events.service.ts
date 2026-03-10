@@ -224,4 +224,39 @@ export class EventsService {
         created_by: event.created_by,
     };
   }
+
+  async getReviewedSessions(eventId: string) {
+    const sessions = await this.prisma.sessions.findMany({
+      where: {
+        event_id: eventId,
+        reviews: {
+          some: {},
+        },
+      },
+      include: {
+        reviews: true,
+      },
+    });
+
+    return sessions.map((session) => {
+      const total = session.reviews.reduce(
+        (sum, r) => sum + (r.score ?? 0),
+        0,
+      );
+
+      const avg =
+        session.reviews.length > 0
+          ? total / session.reviews.length
+          : 0;
+
+      return {
+        sessionId: session.id,
+        title: session.title,
+        trackId: session.track_id,   // also snake_case
+        status: session.status,
+        reviewCount: session.reviews.length,
+        averageScore: Number(avg.toFixed(2)),
+      };
+    });
+  }
 }

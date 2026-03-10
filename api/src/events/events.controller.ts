@@ -63,4 +63,9 @@ export class EventsController {
   async getEvent(@Param('id') id: string) {
     return this.eventsService.getEventById(id);
   }
+
+  @Get(':eventId/reviewed-sessions')
+  async getReviewedSessions(@Param('eventId') eventId: string) {
+    return this.eventsService.getReviewedSessions(eventId);
+  }
 }

@@ -9,12 +9,14 @@ import {
   Get,
   Param,
   Query,
+  Patch
 } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { UpdateSessionStatusDto } from './dto/update-session-status.dto';
 
 @Controller('api/sessions')
 export class SessionsController {
@@ -39,5 +41,13 @@ export class SessionsController {
       id,
       limit ? parseInt(limit, 10) : 5,
     );
+  }
+
+  @Patch(':id/status')
+  async updateSessionStatus(
+    @Param('id') id: string,
+    @Body() dto: UpdateSessionStatusDto,
+  ) {
+    return this.sessionsService.updateSessionStatus(id, dto.status);
   }
 }

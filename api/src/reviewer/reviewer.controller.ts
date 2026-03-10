@@ -35,6 +35,17 @@ export class ReviewerController {
     );
   }
 
+  @Get('sessions/reviewed')
+  getReviewedSessions(
+    @Req() req,
+    @Query('eventId') eventId?: string,
+  ) {
+    return this.reviewerService.getReviewedSessions(
+      req.user.id,
+      eventId,
+    );
+  }
+
   // 2️⃣ Get session detail
   @Get('sessions/:sessionId')
   getSessionDetail(@Req() req, @Param('sessionId') sessionId: string) {

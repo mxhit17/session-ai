@@ -12,16 +12,28 @@ export class ReviewerService {
   constructor(private prisma: PrismaService) {}
 
   // 1️⃣ Get Assigned Sessions
+  // 1️⃣ Get Assigned Sessions (PENDING REVIEWS ONLY)
   async getAssignedSessions(userId: string, eventId?: string, status?: string) {
     return this.prisma.session_review_assignments.findMany({
       where: {
         reviewer_id: userId,
+
+        // ❗ Exclude sessions already reviewed by this reviewer
         sessions: {
           deleted_at: null,
+
           ...(eventId && { event_id: eventId }),
           ...(status && { status }),
+
+          reviews: {
+            none: {
+              reviewer_id: userId,
+              is_ai_generated: false,
+            },
+          },
         },
       },
+
       include: {
         sessions: {
           include: {
@@ -33,6 +45,46 @@ export class ReviewerService {
           },
         },
       },
+
+      orderBy: { assigned_at: 'desc' },
+    });
+  }
+
+  // 7️⃣ Get Reviewed Sessions
+  async getReviewedSessions(userId: string, eventId?: string) {
+    return this.prisma.session_review_assignments.findMany({
+      where: {
+        reviewer_id: userId,
+
+        sessions: {
+          deleted_at: null,
+          ...(eventId && { event_id: eventId }),
+
+          // ✅ Only sessions already reviewed by this reviewer
+          reviews: {
+            some: {
+              reviewer_id: userId,
+              is_ai_generated: false,
+            },
+          },
+        },
+      },
+
+      include: {
+        sessions: {
+          include: {
+            events: true,
+            tracks: true,
+            reviews: {
+              where: {
+                reviewer_id: userId,
+                is_ai_generated: false,
+              },
+            },
+          },
+        },
+      },
+
       orderBy: { assigned_at: 'desc' },
     });
   }
@@ -184,3 +236,5 @@ export class ReviewerService {
     };
     }
 }
+
+// once a session is reviewed by the reviewer it was assigned to. So when the reviewer hits the get asigned sessions api do not include the reviewed session in it but create a seprate api which returns the assigned and reviewed Sessions.

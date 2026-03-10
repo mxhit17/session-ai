@@ -271,4 +271,13 @@ export class SessionsService {
         similarity_score: Number(row.distance.toFixed(4)),
     }));
   }
+
+  async updateSessionStatus(id: string, status: string) {
+    return this.prisma.sessions.update({
+      where: { id },
+      data: {
+        status,
+      },
+    });
+  }
 }
