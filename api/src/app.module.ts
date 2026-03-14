@@ -10,6 +10,7 @@ import { SpeakerModule } from './speaker/speaker.module';
 import { TrackModule } from './tracks/track.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { ReviewerModule } from './reviewer/reviewer.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 
 @Module({
@@ -27,7 +28,8 @@ import { ReviewerModule } from './reviewer/reviewer.module';
     SpeakerModule,
     TrackModule,
     RoomsModule,
-    ReviewerModule
+    ReviewerModule,
+    ScheduleModule
   ],
 })
 export class AppModule {}
