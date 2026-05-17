@@ -10,14 +10,15 @@ import { SpeakerModule } from './speaker/speaker.module';
 import { TrackModule } from './tracks/track.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { ReviewerModule } from './reviewer/reviewer.module';
-import { ScheduleModule } from './schedule/schedule.module';
+import { ScheduleModule } from './schedule/schedule.module'
+import { UploadModule } from './upload/upload.module';
+import { MailModule } from './mail/mail.module';
 
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
     }),
     PrismaModule,
     HealthModule,
@@ -29,7 +30,9 @@ import { ScheduleModule } from './schedule/schedule.module';
     TrackModule,
     RoomsModule,
     ReviewerModule,
-    ScheduleModule
+    ScheduleModule,
+    UploadModule,
+    MailModule
   ],
 })
 export class AppModule {}

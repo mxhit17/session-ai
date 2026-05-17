@@ -144,7 +144,7 @@ export type Event_reviewersGroupByOutputType = {
   _max: Event_reviewersMaxAggregateOutputType | null
 }
 
-type GetEvent_reviewersGroupByPayload<T extends event_reviewersGroupByArgs> = Prisma.PrismaPromise<
+export type GetEvent_reviewersGroupByPayload<T extends event_reviewersGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<Event_reviewersGroupByOutputType, T['by']> &
       {
@@ -1166,6 +1166,11 @@ export type event_reviewersFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` event_reviewers.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of event_reviewers.
+   */
   distinct?: Prisma.Event_reviewersScalarFieldEnum | Prisma.Event_reviewersScalarFieldEnum[]
 }
 

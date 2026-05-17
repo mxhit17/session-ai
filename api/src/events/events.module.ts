@@ -6,9 +6,10 @@ import { CfpController } from './cfp.controller';
 import { CfpService } from './cfp.service';
 import { ReviewerPoolController } from './reviewer-pool/reviewer-pool.controller';
 import { ReviewerPoolService } from './reviewer-pool/reviewer-pool.service';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule,MailModule],
   controllers: [EventsController, CfpController, ReviewerPoolController],
   providers: [EventsService, CfpService, ReviewerPoolService],
 })

@@ -12,4 +12,8 @@ export class UpdateSpeakerProfileDto {
   @IsOptional()
   @IsEnum(['Beginner', 'Intermediate', 'Advanced'])
   experience_level?: 'Beginner' | 'Intermediate' | 'Advanced';
+
+  @IsOptional()
+  @IsString()
+  profile_photo_url?: string;   // 👈 add this
 }

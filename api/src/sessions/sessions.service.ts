@@ -9,6 +9,7 @@ import { InferenceClient } from '@huggingface/inference';
 import 'dotenv/config';
 import { AiService } from 'src/ai/ai.service';
 import { ReviewsService } from 'src/review/review.service';
+import { MailService } from 'src/mail/mail.service';
 
 const hf = new InferenceClient(process.env.HF_TOKEN!);
 
@@ -16,7 +17,8 @@ const hf = new InferenceClient(process.env.HF_TOKEN!);
 export class SessionsService {
   constructor(private readonly prisma: PrismaService,
     private aiService: AiService,
-    private reviewsService: ReviewsService,) {}
+    private reviewsService: ReviewsService,
+  private readonly mailService: MailService,) {}
 
   private async autoAssignReviewers(
     sessionId: string,
@@ -218,12 +220,12 @@ export class SessionsService {
       Session Abstract: ${session.abstract}
     `;
 
-    setImmediate(async () => {
-      const aiReview = await this.aiService.reviewSession(sessionText);
-      if (aiReview) {
-        await this.reviewsService.createAIReview(session.id, aiReview);
-      }
-    });
+    // setImmediate(async () => {
+    //   const aiReview = await this.aiService.reviewSession(sessionText);
+    //   if (aiReview) {
+    //     await this.reviewsService.createAIReview(session.id, aiReview);
+    //   }
+    // });
 
     // Assign Reviewers
     if (session.event_id == null) {
@@ -232,6 +234,10 @@ export class SessionsService {
       // 🔹 Auto assign reviewers (after session creation)
       await this.autoAssignReviewers(session.id, session.event_id!);
     }
+    // fire-and-forget email (best practice)
+    this.mailService
+      .sendSessionCreatedEmail(user.email, session)
+      .catch(console.error);
     return session;
   }
 
@@ -271,13 +277,41 @@ export class SessionsService {
         similarity_score: Number(row.distance.toFixed(4)),
     }));
   }
-
   async updateSessionStatus(id: string, status: string) {
-    return this.prisma.sessions.update({
+    const session = await this.prisma.sessions.update({
       where: { id },
-      data: {
-        status,
+      data: { status },
+      include: {
+        session_speakers: {
+          include: {
+            speaker_profiles: {
+              include: {
+                users: true,
+              },
+            },
+          },
+        },
       },
     });
+
+    const emails = session.session_speakers
+      .map((ss) => ss.speaker_profiles?.users?.email)
+      .filter((email): email is string => Boolean(email));
+
+    for (const email of emails) {
+      if (status === 'ACCEPTED') {
+        this.mailService
+          .sendSessionAcceptedEmail(email, session)
+          .catch(console.error);
+      }
+
+      if (status === 'REJECTED') {
+        this.mailService
+          .sendSessionRejectedEmail(email, session)
+          .catch(console.error);
+      }
+    }
+
+    return session;
   }
 }

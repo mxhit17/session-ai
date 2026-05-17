@@ -151,7 +151,7 @@ export type TracksGroupByOutputType = {
   _max: TracksMaxAggregateOutputType | null
 }
 
-type GetTracksGroupByPayload<T extends tracksGroupByArgs> = Prisma.PrismaPromise<
+export type GetTracksGroupByPayload<T extends tracksGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<TracksGroupByOutputType, T['by']> &
       {
@@ -1204,6 +1204,11 @@ export type tracksFindManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Skip the first `n` tracks.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of tracks.
+   */
   distinct?: Prisma.TracksScalarFieldEnum | Prisma.TracksScalarFieldEnum[]
 }
 

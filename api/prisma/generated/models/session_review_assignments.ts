@@ -151,7 +151,7 @@ export type Session_review_assignmentsGroupByOutputType = {
   _max: Session_review_assignmentsMaxAggregateOutputType | null
 }
 
-type GetSession_review_assignmentsGroupByPayload<T extends session_review_assignmentsGroupByArgs> = Prisma.PrismaPromise<
+export type GetSession_review_assignmentsGroupByPayload<T extends session_review_assignmentsGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<Session_review_assignmentsGroupByOutputType, T['by']> &
       {
@@ -1207,6 +1207,11 @@ export type session_review_assignmentsFindManyArgs<ExtArgs extends runtime.Types
    * Skip the first `n` session_review_assignments.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of session_review_assignments.
+   */
   distinct?: Prisma.Session_review_assignmentsScalarFieldEnum | Prisma.Session_review_assignmentsScalarFieldEnum[]
 }
 

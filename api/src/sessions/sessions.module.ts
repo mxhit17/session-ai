@@ -4,9 +4,10 @@ import { SessionsController } from './sessions.controller';
 import { PrismaModule } from '../common/prisma/prisma.module';
 import { AiModule } from 'src/ai/ai.module';
 import { ReviewsModule } from 'src/review/review.module';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
-  imports: [PrismaModule, AiModule, ReviewsModule],
+  imports: [PrismaModule, AiModule, ReviewsModule, MailModule],
   controllers: [SessionsController],
   providers: [SessionsService],
 })

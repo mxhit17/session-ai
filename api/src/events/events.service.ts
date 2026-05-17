@@ -3,84 +3,98 @@ import { PrismaService } from '../common/prisma/prisma.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { MailService } from 'src/mail/mail.service';
 @Injectable()
 export class EventsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
+    private readonly mailService: MailService,
   ) {}
   async createEvent(dto: CreateEventDto, userId: string) {
-    const start = new Date(dto.start_date);
-    const end = new Date(dto.end_date);
+  const start = new Date(dto.start_date);
+  const end = new Date(dto.end_date);
 
-    if (end < start) {
-      throw new BadRequestException('End date must be after start date');
+  if (end < start) {
+    throw new BadRequestException('End date must be after start date');
+  }
+
+  const result = await this.prisma.$transaction(async (tx) => {
+    const organizerRole = await tx.roles.findUniqueOrThrow({
+      where: { name: 'ORGANIZER' },
+    });
+
+    const existingRole = await tx.user_roles.findUnique({
+      where: {
+        user_id_role_id: {
+          user_id: userId,
+          role_id: organizerRole.id,
+        },
+      },
+    });
+
+    let newToken: string | null = null;
+
+    if (!existingRole) {
+      await tx.user_roles.create({
+        data: {
+          user_id: userId,
+          role_id: organizerRole.id,
+        },
+      });
+
+      const updatedRoles = await tx.user_roles.findMany({
+        where: { user_id: userId },
+        include: { roles: true },
+      });
+
+      const roleNames = updatedRoles.map((ur) => ur.roles.name);
+
+      const user = await tx.users.findUniqueOrThrow({
+        where: { id: userId },
+        select: { email: true },
+      });
+
+      newToken = this.jwtService.sign({
+        sub: userId,
+        email: user.email,
+        roles: roleNames,
+      });
     }
 
-    return this.prisma.$transaction(async (tx) => {
-      const organizerRole = await tx.roles.findUniqueOrThrow({
-        where: { name: 'ORGANIZER' },
-      });
-
-      const existingRole = await tx.user_roles.findUnique({
-        where: {
-          user_id_role_id: {
-            user_id: userId,
-            role_id: organizerRole.id,
-          },
-        },
-      });
-
-      let newToken: string | null = null;
-
-      if (!existingRole) {
-        await tx.user_roles.create({
-          data: {
-            user_id: userId,
-            role_id: organizerRole.id,
-          },
-        });
-
-        // ✅ Fetch updated roles
-        const updatedRoles = await tx.user_roles.findMany({
-          where: { user_id: userId },
-          include: { roles: true },
-        });
-
-        const roleNames = updatedRoles.map((ur) => ur.roles.name);
-
-        // ✅ Fetch user email
-        const user = await tx.users.findUniqueOrThrow({
-          where: { id: userId },
-          select: { email: true },
-        });
-
-        // ✅ Sign new token with email included
-        newToken = this.jwtService.sign({
-          sub: userId,
-          email: user.email,
-          roles: roleNames,
-        });
-      }
-
-      const event = await tx.events.create({
-        data: {
-          title: dto.title,
-          description: dto.description,
-          start_date: start,
-          end_date: end,
-          location: dto.location,
-          timezone: dto.timezone,
-          created_by: userId,
-        },
-      });
-
-      return {
-        event,
-        token: newToken,
-      };
+    const event = await tx.events.create({
+      data: {
+        title: dto.title,
+        description: dto.description,
+        start_date: start,
+        end_date: end,
+        location: dto.location,
+        timezone: dto.timezone,
+        created_by: userId,
+      },
     });
-  }
+
+    // 👇 also fetch user email here
+    const user = await tx.users.findUniqueOrThrow({
+      where: { id: userId },
+      select: { email: true },
+    });
+
+    return {
+      event,
+      token: newToken,
+      email: user.email,
+    };
+  });
+
+  // ✅ Send email AFTER transaction success
+  await this.mailService.sendEventCreatedEmail(result.email, result.event);
+
+  return {
+    event: result.event,
+    token: result.token,
+  };
+}
 
   async updateEvent(id: string, dto: UpdateEventDto, userId: string) {
     const event = await this.prisma.events.findFirst({
