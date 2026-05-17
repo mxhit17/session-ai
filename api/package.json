@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "nest dist/main",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -23,6 +23,7 @@
     "@google/generative-ai": "^0.24.1",
     "@huggingface/inference": "^4.13.11",
     "@nestjs-modules/mailer": "^2.3.0",
+    "@nestjs/cli": "^11.0.21",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.0.1",
@@ -34,12 +35,14 @@
     "nodemailer": "^8.0.3",
     "pg": "^8.17.2",
     "reflect-metadata": "^0.2.2",
+    "typescript": "^5.7.3",
+    "ts-node": "^10.9.2",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
-    "@nestjs/cli": "^11.0.0",
+
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
     "@types/bcrypt": "^6.0.0",
@@ -59,9 +62,9 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.2",
-    "ts-node": "^10.9.2",
+    
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.7.3",
+    
     "typescript-eslint": "^8.20.0"
   },
   "jest": {
